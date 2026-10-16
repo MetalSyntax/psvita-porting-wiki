@@ -1,0 +1,6 @@
+theme: jekyll-theme-cayman
+title: PS Vita Porting Wiki
+description: Enciclopedia Técnica Definitiva sobre Ports de Android para PlayStation Vita
+permalink: pretty
+include:
+  - docs

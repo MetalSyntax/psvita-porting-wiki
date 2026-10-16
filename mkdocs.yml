@@ -1,0 +1,115 @@
+site_name: PS Vita Porting Wiki & Knowledge Base
+site_description: "Enciclopedia técnica definitiva sobre ports de Android (.so loader, FalsoJNI, vitaGL) para PlayStation Vita. Guía completa en Español e Inglés."
+site_author: "PS Vita Porting Community"
+site_url: "https://metalsyntax.github.io/psvita-porting-wiki/"
+
+repo_name: "metalsyntax/psvita-porting-wiki"
+repo_url: "https://github.com/metalsyntax/psvita-porting-wiki"
+edit_uri: "edit/main/docs/"
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Scheme mode: Dark / Light toggle
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro / Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro / Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vitasdk
+      name: VitaSDK GitHub
+    - icon: fontawesome/brands/github
+      link: https://github.com/Rinnegatamante/vitaGL
+      name: vitaGL by Rinnegatamante
+    - icon: fontawesome/brands/github
+      link: https://github.com/TheOfficialFloW/kubridge
+      name: kubridge by TheFloW
+
+nav:
+  - Home / Portada: index.md
+  - "Español (ES)":
+      - "00. Visión General & Mapa": es/index.md
+      - "01. Fundamentos & Arquitectura": es/00-fundamentos-arquitectura.md
+      - "02. Entorno y Herramientas": es/01-entorno-y-herramientas.md
+      - "03. Triaje y Selección de APK": es/02-triaje-y-seleccion-apk.md
+      - "04. Análisis Estático & Reverse Engineering": es/03-analisis-estatico-e-ingenieria-inversa.md
+      - "05. Arquitectura SoLoader & Relocalizaciones": es/04-arquitectura-soloader-y-relocalizaciones.md
+      - "06. FalsoJNI & Puente Java": es/05-falsojni-y-puente-java.md
+      - "07. Pipeline Gráfico con vitaGL": es/06-pipeline-grafico-vitagl.md
+      - "08. Subsistema de Audio": es/07-subsistema-de-audio.md
+      - "09. Controles & Sistema de Entrada": es/08-controles-e-input.md
+      - "10. Sistema de Archivos & Assets": es/09-sistema-de-archivos-y-assets.md
+      - "11. LiveArea & Empaquetado VPK": es/10-livearea-y-empaquetado-vpk.md
+      - "12. Triage de Crashes & Hardware Debugging": es/11-triage-de-crashes-y-debugging.md
+      - "13. Arqueología de Motores Reales": es/12-arqueologia-de-motores.md
+      - "14. Guía de Porting Asistido con IA": es/13-guia-porting-con-ia.md
+      - "15. Guía Base (gl33ntwine)": es/14-guia-base-gl33ntwine.md
+      - "16. Referencia Rápida & Cheat Sheets": es/15-referencia-rapida-y-cheatsheets.md
+  - "English (EN)":
+      - "00. Overview & Roadmap": en/index.md
+      - "01. Fundamentals & Architecture": en/00-fundamentals-architecture.md
+      - "02. Environment & Toolchains": en/01-environment-and-tools.md
+      - "03. APK Triage & Viability Analysis": en/02-apk-triage-and-selection.md
+      - "04. Static Analysis & Reverse Engineering": en/03-static-analysis-and-reverse-engineering.md
+      - "05. SoLoader Core & Relocations": en/04-soloader-architecture-and-relocations.md
+      - "06. FalsoJNI & Java Bridge": en/05-falsojni-and-java-bridge.md
+      - "07. Graphics Pipeline with vitaGL": en/06-vitagl-graphics-pipeline.md
+      - "08. Audio Subsystem": en/07-audio-subsystem.md
+      - "09. Controls & Input Mapping": en/08-controls-and-input.md
+      - "10. File System & Asset Management": en/09-file-system-and-assets.md
+      - "11. LiveArea & VPK Packaging": en/10-livearea-and-vpk-packaging.md
+      - "12. Crash Triage & Hardware Debugging": en/11-crash-triage-and-debugging.md
+      - "13. Real Engine Archaeology": en/12-engine-archaeology.md
+      - "14. AI-Assisted Porting Guide": en/13-ai-assisted-porting.md
+      - "15. Base Guide (gl33ntwine)": en/14-base-guide-gl33ntwine.md
+      - "16. Quick Reference & Cheat Sheets": en/15-quick-reference-and-cheatsheets.md
