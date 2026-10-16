@@ -1,0 +1,199 @@
+/* Custom Modern Styling for PS Vita Porting Wiki */
+
+:root {
+  --wiki-accent-gradient: linear-gradient(135deg, #0070d1 0%, #00b4d8 100%);
+  --wiki-card-border: rgba(0, 112, 209, 0.2);
+  --wiki-card-hover: rgba(0, 180, 216, 0.15);
+}
+
+[data-md-color-scheme="slate"] {
+  --wiki-card-bg: rgba(22, 27, 34, 0.85);
+  --wiki-card-border: rgba(56, 139, 253, 0.25);
+  --wiki-card-hover: rgba(56, 139, 253, 0.12);
+  --wiki-hero-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-md-color-scheme="default"] {
+  --wiki-card-bg: rgba(255, 255, 255, 0.95);
+  --wiki-card-border: rgba(0, 112, 209, 0.15);
+  --wiki-card-hover: rgba(0, 112, 209, 0.08);
+  --wiki-hero-border: rgba(0, 0, 0, 0.06);
+}
+
+/* Hero Container */
+.hero-container {
+  text-align: center;
+  padding: 2.5rem 1.5rem 2rem 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 16px;
+  background: radial-gradient(circle at top, rgba(0, 112, 209, 0.12) 0%, transparent 70%);
+  border: 1px solid var(--wiki-hero-border);
+  backdrop-filter: blur(8px);
+}
+
+.hero-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.8rem;
+  background: linear-gradient(135deg, #0070d1 10%, #00b4d8 60%, #90e0ef 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  max-width: 780px;
+  margin: 0 auto 1.5rem auto;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Feature Badges */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin: 1.2rem 0;
+}
+
+.feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  background: rgba(0, 112, 209, 0.1);
+  border: 1px solid var(--wiki-card-border);
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.feature-pill:hover {
+  transform: translateY(-2px);
+  background: rgba(0, 180, 216, 0.2);
+}
+
+/* Modern Language Selection Grid */
+.lang-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.lang-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.8rem;
+  border-radius: 14px;
+  background: var(--wiki-card-bg);
+  border: 1px solid var(--wiki-card-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.lang-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--wiki-accent-gradient);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.lang-card:hover {
+  transform: translateY(-4px);
+  border-color: #00b4d8;
+  box-shadow: 0 12px 30px rgba(0, 112, 209, 0.15);
+}
+
+.lang-card:hover::before {
+  opacity: 1;
+}
+
+.lang-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.lang-flag {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.lang-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.lang-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: var(--wiki-accent-gradient);
+  color: #ffffff !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(0, 112, 209, 0.3);
+  transition: all 0.2s ease;
+}
+
+.lang-btn:hover {
+  box-shadow: 0 6px 20px rgba(0, 180, 216, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Statistics row */
+.stats-banner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.stat-box {
+  padding: 1.2rem 1rem;
+  border-radius: 12px;
+  background: var(--wiki-card-bg);
+  border: 1px solid var(--wiki-card-border);
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #00b4d8;
+  margin-bottom: 0.2rem;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+}
