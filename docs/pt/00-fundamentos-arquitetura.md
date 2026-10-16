@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../00-fundamentals-architecture/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/00-fundamentos-arquitectura/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 00 • Fundamentos de Hardware</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Fundamentos e Arquitetura de Hardware</h1>

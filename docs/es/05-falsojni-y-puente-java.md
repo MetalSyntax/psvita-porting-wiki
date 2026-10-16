@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../05-falsojni-and-java-bridge/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../../pt/05-falsojni-e-ponte-java/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 05 • Puente Java</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">FalsoJNI y Puente de Emulación Java</h1>

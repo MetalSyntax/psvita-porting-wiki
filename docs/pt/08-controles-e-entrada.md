@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../08-controls-and-input/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/08-controles-e-input/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 08 • Entrada e Controles</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Controles, Entrada de Toque e Mapeamento Físico</h1>

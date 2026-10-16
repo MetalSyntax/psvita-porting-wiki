@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../00-fundamentals-architecture/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/00-fundamentos-arquitectura/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/00-fundamentos-arquitetura/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 00 • Core Foundations</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Hardware Architecture & SoLoader Theory</h1>

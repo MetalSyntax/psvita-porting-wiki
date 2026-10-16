@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../08-controls-and-input/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/08-controles-e-input/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/08-controles-e-entrada/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 08 • Hardware Input</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Controls & Input Mapping</h1>

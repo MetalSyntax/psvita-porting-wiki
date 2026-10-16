@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../01-environment-and-tools/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/01-entorno-y-herramientas/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/01-ambiente-e-ferramentas/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 01 • Toolchain & Hardware</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Environment Setup & Toolchains</h1>

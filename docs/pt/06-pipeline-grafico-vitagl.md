@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../06-vitagl-graphics-pipeline/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/06-pipeline-grafico-vitagl/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 06 • Gráficos vitaGL</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Pipeline Gráfico com vitaGL</h1>

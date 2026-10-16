@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../14-base-guide-gl33ntwine/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/14-guia-base-gl33ntwine/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/14-guia-base-gl33ntwine/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 14 • Heritage Guide</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Getting Started with PSVita Homebrew Development</h1>

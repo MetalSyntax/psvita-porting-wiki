@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../01-environment-and-tools/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../../pt/01-ambiente-e-ferramentas/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 01 • Entorno & Toolchains</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Entorno de Desarrollo y Herramientas</h1>

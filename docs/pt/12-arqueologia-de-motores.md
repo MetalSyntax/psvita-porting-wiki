@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../12-engine-archaeology/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/12-arqueologia-de-motores/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 12 • Arqueologia de Motores</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Arqueologia de Motores Reais e Estudos de Caso</h1>

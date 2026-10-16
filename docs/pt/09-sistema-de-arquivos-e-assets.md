@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../09-file-system-and-assets/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/09-sistema-de-archivos-y-assets/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 09 • Armazenamento & Arquivos</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Sistema de Arquivos e Gestão de Assets</h1>

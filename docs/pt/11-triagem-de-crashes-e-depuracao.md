@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../11-crash-triage-and-debugging/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/11-triage-de-crashes-y-debugging/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 11 • Depuração de Hardware</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Triagem de Crashes e Depuração no Hardware</h1>

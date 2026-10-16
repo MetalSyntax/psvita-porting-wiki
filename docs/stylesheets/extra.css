@@ -7,13 +7,25 @@
   --wiki-hero-border: rgba(0, 112, 209, 0.15);
 }
 
+/* Dark Slate Theme - Custom #1F2129 Background & #121418 Header/Footer */
 [data-md-color-scheme="slate"] {
-  --wiki-card-bg: rgba(22, 27, 34, 0.85);
-  --wiki-card-border: rgba(56, 139, 253, 0.25);
+  --md-default-bg-color: #1F2129;
+  --md-default-bg-color--light: #252832;
+  --md-default-bg-color--lighter: #2d313d;
+  --md-default-bg-color--lightest: #383c4a;
+  
+  --md-primary-fg-color: #121418;
+  --md-primary-bg-color: #121418;
+  
+  --md-footer-bg-color: #121418;
+  --md-footer-bg-color--dark: #0c0e10;
+
+  --wiki-card-bg: rgba(28, 30, 38, 0.95);
+  --wiki-card-border: rgba(56, 139, 253, 0.22);
   --wiki-card-hover: rgba(56, 139, 253, 0.12);
   --wiki-hero-border: rgba(255, 255, 255, 0.08);
-  --wiki-meta-bg: rgba(30, 41, 59, 0.8);
-  --wiki-example-bg: rgba(15, 23, 42, 0.95);
+  --wiki-meta-bg: rgba(20, 22, 28, 0.85);
+  --wiki-example-bg: rgba(18, 20, 24, 0.95);
 }
 
 [data-md-color-scheme="default"] {
@@ -25,22 +37,38 @@
   --wiki-example-bg: rgba(248, 250, 252, 0.95);
 }
 
+/* Header Styling: Match footer #121418 */
+.md-header {
+  background-color: #121418 !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Eradicate any auto-generated heading before hero or #overview */
+.md-typeset > h1:first-child:has(+ .hero-container),
+.md-typeset > h1:first-child:has(+ * > .hero-container),
+.md-typeset > h1#overview {
+  display: none !important;
+}
+
 /* Hero Container */
 .hero-container {
   text-align: center;
   padding: 2.5rem 1.5rem 2rem 1.5rem;
   margin-bottom: 2rem;
   border-radius: 16px;
-  background: radial-gradient(circle at top, rgba(0, 112, 209, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle at top, rgba(0, 112, 209, 0.14) 0%, rgba(18, 20, 24, 0.6) 70%);
   border: 1px solid var(--wiki-hero-border);
   backdrop-filter: blur(8px);
 }
 
-.hero-title {
+.hero-title,
+h1.hero-title {
   font-size: 2.4rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  margin-bottom: 0.8rem;
+  margin: 0 0 0.8rem 0;
+  padding: 0;
   background: linear-gradient(135deg, #0070d1 10%, #00b4d8 60%, #90e0ef 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -71,7 +99,7 @@
   font-size: 0.82rem;
   font-weight: 600;
   border-radius: 9999px;
-  background: rgba(0, 112, 209, 0.1);
+  background: rgba(0, 112, 209, 0.12);
   border: 1px solid var(--wiki-card-border);
   color: inherit;
   transition: all 0.2s ease;
@@ -79,10 +107,10 @@
 
 .feature-pill:hover {
   transform: translateY(-2px);
-  background: rgba(0, 180, 216, 0.2);
+  background: rgba(0, 180, 216, 0.22);
 }
 
-/* Modern Language Selection Grid */
+/* Modern Roadmap Selection Grid */
 .lang-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -98,7 +126,7 @@
   border-radius: 14px;
   background: var(--wiki-card-bg);
   border: 1px solid var(--wiki-card-border);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -119,7 +147,7 @@
 .lang-card:hover {
   transform: translateY(-4px);
   border-color: #00b4d8;
-  box-shadow: 0 12px 30px rgba(0, 112, 209, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 112, 209, 0.18);
 }
 
 .lang-card:hover::before {
@@ -212,7 +240,7 @@
   padding: 1.8rem 1.6rem;
   margin-bottom: 2rem;
   border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0, 112, 209, 0.08) 0%, rgba(0, 180, 216, 0.04) 100%);
+  background: linear-gradient(135deg, rgba(0, 112, 209, 0.1) 0%, rgba(0, 180, 216, 0.05) 100%);
   border-left: 4px solid #00b4d8;
   border-top: 1px solid var(--wiki-card-border);
   border-right: 1px solid var(--wiki-card-border);
@@ -247,39 +275,6 @@
   background: var(--wiki-meta-bg);
   border: 1px solid var(--wiki-card-border);
   opacity: 0.9;
-}
-
-/* Quick Language Switcher Bar on every page */
-.lang-switch-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-bottom: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  background: var(--wiki-meta-bg);
-  border: 1px solid var(--wiki-card-border);
-  border-radius: 8px;
-  font-size: 0.82rem;
-}
-
-.lang-switch-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  color: inherit !important;
-  text-decoration: none !important;
-  font-weight: 500;
-  transition: background 0.15s ease;
-}
-
-.lang-switch-link:hover,
-.lang-switch-link.active {
-  background: rgba(0, 112, 209, 0.15);
-  color: #00b4d8 !important;
-  font-weight: 700;
 }
 
 /* Practical Example Callout Box */

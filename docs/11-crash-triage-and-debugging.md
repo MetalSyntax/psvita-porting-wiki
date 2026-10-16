@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../11-crash-triage-and-debugging/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/11-triage-de-crashes-y-debugging/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/11-triagem-de-crashes-e-depuracao/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 11 • Hardware Diagnostics</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Crash Triage & Hardware Debugging</h1>

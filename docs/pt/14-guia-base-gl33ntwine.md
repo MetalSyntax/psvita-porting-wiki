@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../14-base-guide-gl33ntwine/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/14-guia-base-gl33ntwine/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 14 • Guia Histórico</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Guia Base de gl33ntwine (Vitaliy Atamanenko)</h1>

@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../02-apk-triage-and-selection/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/02-triaje-y-seleccion-apk/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 02 • Viabilidade & Triagem</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Triagem e Análise de Viabilidade de APK</h1>

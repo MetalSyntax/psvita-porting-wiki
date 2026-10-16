@@ -4,15 +4,8 @@ hide:
   - toc
 ---
 
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="./" class="lang-switch-link active">🇬🇧 English (Default)</a>
-  <a href="es/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="pt/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="hero-container">
-  <div class="hero-title">PS Vita Porting Wiki & Knowledge Base</div>
+  <h1 class="hero-title">PS Vita Porting Wiki & Knowledge Base</h1>
   <div class="hero-subtitle">
     The definitive technical manual and engineering reference for porting Android mobile games (via <code>.so loader</code>, <code>FalsoJNI</code>, and <code>vitaGL</code>) to the PlayStation Vita handheld console.
   </div>

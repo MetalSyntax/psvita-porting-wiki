@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../04-soloader-architecture-and-relocations/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/04-arquitectura-soloader-y-relocalizaciones/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/04-arquitetura-soloader-e-realocacoes/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 04 • Core Runtime</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">SoLoader Core & Relocations</h1>

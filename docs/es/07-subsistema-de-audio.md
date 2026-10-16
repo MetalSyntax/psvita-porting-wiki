@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../07-audio-subsystem/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../../pt/07-subsistema-de-audio/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 07 • Subsistema de Audio</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Subsistema de Audio y Streaming</h1>

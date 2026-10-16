@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../13-ai-assisted-porting/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../../pt/13-guia-porting-con-ia/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 13 • Pair Programming con IA</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Guía de Porting Asistido con IA</h1>

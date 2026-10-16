@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../03-static-analysis-and-reverse-engineering/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/03-analisis-estatico-e-ingenieria-inversa/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/03-analise-estatica-e-engenharia-reversa/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 03 • Reverse Engineering</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Static Analysis & Reverse Engineering</h1>

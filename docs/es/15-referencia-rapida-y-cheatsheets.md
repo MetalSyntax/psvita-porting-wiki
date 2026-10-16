@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../15-quick-reference-and-cheatsheets/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../../pt/15-referencia-rapida-e-cheatsheets/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 15 • Tablas de Referencia</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Referencia Rápida y Cheat Sheets</h1>

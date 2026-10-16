@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../" class="lang-switch-link">🇬🇧 English (Default)</a>
-  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
-  <a href="../pt/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Edición en Español</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Enciclopedia y Guía de Porting para PS Vita (SoLoader)</h1>

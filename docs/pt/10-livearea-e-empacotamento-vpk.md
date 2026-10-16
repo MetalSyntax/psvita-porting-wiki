@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../../10-livearea-and-vpk-packaging/" class="lang-switch-link">🇬🇧 English</a>
-  <a href="../../es/10-livearea-y-empaquetado-vpk/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Capítulo 10 • Empacotamento & LiveArea</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">LiveArea e Empacotamento de VPK</h1>

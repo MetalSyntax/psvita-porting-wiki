@@ -1,10 +1,3 @@
-<div class="lang-switch-bar">
-  <span>🌐 Language / Idioma:</span>
-  <a href="../13-ai-assisted-porting/" class="lang-switch-link active">🇬🇧 English</a>
-  <a href="../es/13-guia-porting-con-ia/" class="lang-switch-link">🇪🇸 Español</a>
-  <a href="../pt/13-guia-porting-con-ia/" class="lang-switch-link">🇧🇷 Português</a>
-</div>
-
 <div class="chapter-hero">
   <span class="chapter-badge">Chapter 13 • AI Pair Programming</span>
   <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">AI-Assisted Porting & Token Economy</h1>
