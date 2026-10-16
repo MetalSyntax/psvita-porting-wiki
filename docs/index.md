@@ -7,7 +7,7 @@
 
 ---
 
-## 🌐 Selecciona tu idioma / Select your language
+## 🌐 Selecciona tu idioma / Select your language / Selecione seu idioma
 
 <div class="grid cards" markdown>
 
@@ -27,13 +27,21 @@
 
     [:octicons-arrow-right-24: Start in English](en/index.md)
 
+-   :brazil: :portugal: **[Português (PT) — Entrar na Wiki](pt/index.md)**
+
+    ---
+
+    Manual completo de engenharia passo a passo, arquitetura de memória, emulação de JNI, shaders, triagem de crashes no console físico e dissecação de motores.
+
+    [:octicons-arrow-right-24: Iniciar em Português](pt/index.md)
+
 </div>
 
 ---
 
-## ⚡ Enlaces rápidos al Ecosistema / Quick Ecosystem Links
+## ⚡ Enlaces rápidos al Ecosistema / Quick Ecosystem Links / Links Rápidos do Ecossistema
 
-| Herramienta / Proyecto | Repositorio Oficial | Rol en el Porting |
+| Herramienta / Projeto | Repositorio Oficial | Rol en el Porting / Função no Porting |
 | :--- | :--- | :--- |
 | **VitaSDK** | [github.com/vitasdk](https://github.com/vitasdk) | Toolchain de compilación cruzada GCC para PS Vita (`arm-vita-eabi-gcc`). |
 | **vitaGL** | [github.com/Rinnegatamante/vitaGL](https://github.com/Rinnegatamante/vitaGL) | Wrapper acelerado por hardware OpenGL ES 1.1 / 2.0 sobre el motor nativo SCE GXM. |

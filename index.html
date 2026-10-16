@@ -7,7 +7,9 @@
   <script type="text/javascript">
     // Automatic redirection based on browser language
     var userLang = navigator.language || navigator.userLanguage;
-    if (userLang.startsWith('es')) {
+    if (userLang.startsWith('pt')) {
+      window.location.href = "pt/";
+    } else if (userLang.startsWith('es')) {
       window.location.href = "es/";
     } else {
       window.location.href = "en/";
@@ -15,6 +17,8 @@
   </script>
 </head>
 <body>
-  <p>Redirigiendo a la wiki / Redirecting to wiki... Si no es redirigido automáticamente: <a href="es/">Español</a> | <a href="en/">English</a></p>
+  <p>Redirigiendo a la wiki / Redirecting to wiki / Redirecionando para a wiki... <br>
+     <a href="es/">Español</a> | <a href="en/">English</a> | <a href="pt/">Português</a>
+  </p>
 </body>
 </html>
