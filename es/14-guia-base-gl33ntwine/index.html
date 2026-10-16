@@ -1,0 +1,3992 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Enciclopédia técnica definitiva sobre ports de Android (.so loader, FalsoJNI, vitaGL) para PlayStation Vita. Guia completo em Espanhol, Inglês e Português.">
+      
+      
+        <meta name="author" content="PS Vita Porting Community">
+      
+      
+        <link rel="canonical" href="https://metalsyntax.github.io/psvita-porting-wiki/es/14-guia-base-gl33ntwine/">
+      
+      
+        <link rel="prev" href="../13-guia-porting-con-ia/">
+      
+      
+        <link rel="next" href="../15-referencia-rapida-y-cheatsheets/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>15. Guía Base (gl33ntwine) - PS Vita Porting Wiki & Knowledge Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#primeros-pasos-con-el-desarrollo-de-homebrew-para-psvita" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="PS Vita Porting Wiki &amp; Knowledge Base" class="md-header__button md-logo" aria-label="PS Vita Porting Wiki & Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            PS Vita Porting Wiki & Knowledge Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              15. Guía Base (gl33ntwine)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue-grey" data-md-color-accent="cyan"  aria-label="Modo claro / Light mode / Modo claro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo claro / Light mode / Modo claro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo"  aria-label="Modo oscuro / Dark mode / Modo escuro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro / Dark mode / Modo escuro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/metalsyntax/psvita-porting-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    metalsyntax/psvita-porting-wiki
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home / Início
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Español (ES)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../en/" class="md-tabs__link">
+          
+  
+  
+  English (EN)
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pt/" class="md-tabs__link">
+          
+  
+  
+  Português (PT)
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="PS Vita Porting Wiki &amp; Knowledge Base" class="md-nav__button md-logo" aria-label="PS Vita Porting Wiki & Knowledge Base" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    PS Vita Porting Wiki & Knowledge Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/metalsyntax/psvita-porting-wiki" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    metalsyntax/psvita-porting-wiki
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home / Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Español (ES)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Español (ES)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    00. Visión General & Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-fundamentos-arquitectura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Fundamentos & Arquitectura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-entorno-y-herramientas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Entorno y Herramientas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-triaje-y-seleccion-apk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Triaje y Selección de APK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-analisis-estatico-e-ingenieria-inversa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Análisis Estático & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-arquitectura-soloader-y-relocalizaciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Arquitectura SoLoader & Relocalizaciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-falsojni-y-puente-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. FalsoJNI & Puente Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-pipeline-grafico-vitagl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Pipeline Gráfico con vitaGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-subsistema-de-audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Subsistema de Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-controles-e-input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. Controles & Sistema de Entrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-sistema-de-archivos-y-assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Sistema de Archivos & Assets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-livearea-y-empaquetado-vpk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. LiveArea & Empaquetado VPK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-triage-de-crashes-y-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Triage de Crashes & Hardware Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-arqueologia-de-motores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Arqueología de Motores Reales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-guia-porting-con-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Guía de Porting Asistido con IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Guía Base (gl33ntwine)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Guía Base (gl33ntwine)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-hardware-de-vita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del hardware de Vita
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen del hardware de Vita">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entradas-y-salidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas y salidas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CPU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overclocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuarto-nucleo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuarto núcleo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memoria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memoria-de-video-vram-128-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria de vídeo / VRAM (128 MiB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoria-principal-ram-512-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria principal / RAM (512 MiB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-de-memoria-y-rendimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caché de memoria y rendimiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#almacenamiento-y-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Almacenamiento y sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Almacenamiento y sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendimiento-del-almacenamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendimiento del almacenamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ubicaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-vitasdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es VitaSDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qué es VitaSDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vitasdk-y-sony-sdk-alguna-diferencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VitaSDK y Sony SDK — ¿alguna diferencia?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vale-que-hay-de-dolcesdk-y-vdsuite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vale, ¿qué hay de dolcesdk y vdsuite?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-vita-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar Vita SDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar Vita SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-de-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables de entorno
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hola-mundo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hola mundo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-el-entorno-de-desarrollo-y-depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar el entorno de desarrollo y depuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar el entorno de desarrollo y depuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compilación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-ejecutable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato ejecutable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Despliegue rápido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Depuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registro-de-eventos-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro de eventos (logging)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analizar-volcados-de-memoria-crash-dumps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analizar volcados de memoria (crash dumps)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb-kvdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gdb (kvdb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#herramientas-del-sdk-de-sony" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas del SDK de Sony
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motores-librerias-apis-graficas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores, librerías, APIs gráficas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Motores, librerías, APIs gráficas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controladores-gpu-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controladores GPU (drivers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controladores GPU (drivers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gxm-vitagl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GXM (+ VitaGL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pvr_psp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PVR_PSP2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#librerias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Librerías
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Librerías">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gxm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GXM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pvr_psp2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PVR_PSP2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entendiendo-el-vpk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entendiendo el VPK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entendiendo el VPK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paramsfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        param.sfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon0-pic0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        icon0, pic0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templatexml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        template.xml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notas-finales-y-enlaces-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notas finales y enlaces útiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notas finales y enlaces útiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolchains-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toolchains C/C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#librerias_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Librerías
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motores-de-juego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores de juego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-lenguajes-de-programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros lenguajes de programación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#herramientas-de-depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas de depuración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras-cosas-que-pueden-ayudar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras cosas que pueden ayudar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-discord-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servidores Discord útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadatos-del-post-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadatos del post original
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-referencia-rapida-y-cheatsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Referencia Rápida & Cheat Sheets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    English (EN)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    English (EN)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    00. Overview & Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/00-fundamentals-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Fundamentals & Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/01-environment-and-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Environment & Toolchains
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/02-apk-triage-and-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. APK Triage & Viability Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/03-static-analysis-and-reverse-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Static Analysis & Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/04-soloader-architecture-and-relocations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. SoLoader Core & Relocations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/05-falsojni-and-java-bridge/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. FalsoJNI & Java Bridge
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/06-vitagl-graphics-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Graphics Pipeline with vitaGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/07-audio-subsystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Audio Subsystem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/08-controls-and-input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. Controls & Input Mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/09-file-system-and-assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. File System & Asset Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/10-livearea-and-vpk-packaging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. LiveArea & VPK Packaging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/11-crash-triage-and-debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Crash Triage & Hardware Debugging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/12-engine-archaeology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Real Engine Archaeology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/13-ai-assisted-porting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. AI-Assisted Porting Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/14-base-guide-gl33ntwine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Base Guide (gl33ntwine)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/15-quick-reference-and-cheatsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Quick Reference & Cheat Sheets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Português (PT)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Português (PT)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    00. Visão Geral & Mapa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/00-fundamentos-arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01. Fundamentos & Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/01-ambiente-e-ferramentas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02. Ambiente e Ferramentas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/02-triagem-e-selecao-apk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03. Triagem e Seleção de APK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/03-analise-estatica-e-engenharia-reversa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04. Análise Estática & Engenharia Reversa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/04-arquitetura-soloader-e-realocacoes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05. Arquitetura SoLoader & Realocações
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/05-falsojni-e-ponte-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06. FalsoJNI & Ponte Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/06-pipeline-grafico-vitagl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07. Pipeline Gráfico com vitaGL
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/07-subsistema-de-audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08. Subsistema de Áudio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/08-controles-e-entrada/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09. Controles & Entrada
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/09-sistema-de-arquivos-e-assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Sistema de Arquivos & Assets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/10-livearea-e-empacotamento-vpk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. LiveArea & Empacotamento VPK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/11-triagem-de-crashes-e-depuracao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Triagem de Crashes & Depuração
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/12-arqueologia-de-motores/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Arqueologia de Motores Reais
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/13-guia-porting-con-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Guia de Porting com IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/14-guia-base-gl33ntwine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Guia Base (gl33ntwine)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pt/15-referencia-rapida-e-cheatsheets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Referência Rápida & Cheat Sheets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-del-hardware-de-vita" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen del hardware de Vita
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resumen del hardware de Vita">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entradas-y-salidas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entradas y salidas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CPU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overclocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overclocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuarto-nucleo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cuarto núcleo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memoria">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#memoria-de-video-vram-128-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria de vídeo / VRAM (128 MiB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memoria-principal-ram-512-mib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memoria principal / RAM (512 MiB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cache-de-memoria-y-rendimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caché de memoria y rendimiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#almacenamiento-y-sistema-de-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Almacenamiento y sistema de archivos
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Almacenamiento y sistema de archivos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rendimiento-del-almacenamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rendimiento del almacenamiento
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubicaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ubicaciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-vitasdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Qué es VitaSDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Qué es VitaSDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vitasdk-y-sony-sdk-alguna-diferencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VitaSDK y Sony SDK — ¿alguna diferencia?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vale-que-hay-de-dolcesdk-y-vdsuite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vale, ¿qué hay de dolcesdk y vdsuite?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-vita-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar Vita SDK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar Vita SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#variables-de-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variables de entorno
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hola-mundo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hola mundo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configurar-el-entorno-de-desarrollo-y-depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurar el entorno de desarrollo y depuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configurar el entorno de desarrollo y depuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desarrollo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compilación
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Compilación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formato-ejecutable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formato ejecutable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#despliegue-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Despliegue rápido
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depuración
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Depuración">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#registro-de-eventos-logging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registro de eventos (logging)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analizar-volcados-de-memoria-crash-dumps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analizar volcados de memoria (crash dumps)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gdb-kvdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gdb (kvdb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#herramientas-del-sdk-de-sony" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas del SDK de Sony
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motores-librerias-apis-graficas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores, librerías, APIs gráficas
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Motores, librerías, APIs gráficas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controladores-gpu-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Controladores GPU (drivers)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Controladores GPU (drivers)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gxm-vitagl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GXM (+ VitaGL)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pvr_psp2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PVR_PSP2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#librerias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Librerías
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Librerías">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gxm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GXM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pvr_psp2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PVR_PSP2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entendiendo-el-vpk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entendiendo el VPK
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entendiendo el VPK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paramsfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        param.sfo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icon0-pic0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        icon0, pic0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#templatexml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        template.xml
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-archivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros archivos
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notas-finales-y-enlaces-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notas finales y enlaces útiles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notas finales y enlaces útiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolchains-cc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toolchains C/C++
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#librerias_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Librerías
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motores-de-juego" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motores de juego
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otros-lenguajes-de-programacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otros lenguajes de programación
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#herramientas-de-depuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Herramientas de depuración
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otras-cosas-que-pueden-ayudar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Otras cosas que pueden ayudar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidores-discord-utiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Servidores Discord útiles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadatos-del-post-original" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Metadatos del post original
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="primeros-pasos-con-el-desarrollo-de-homebrew-para-psvita">Primeros pasos con el desarrollo de homebrew para PSVita<a class="headerlink" href="#primeros-pasos-con-el-desarrollo-de-homebrew-para-psvita" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>Autor:</strong> <a href="https://twitter.com/gl33ntwine">gl33ntwine (Vitaliy Atamanenko)</a><br />
+<strong>Fecha de publicación original:</strong> 2 de Mayo de 2022<br />
+<strong>Tiempo de lectura:</strong> ~38 min (6,918 palabras)<br />
+<strong>URL original (sitio inactivo):</strong> <code>https://gl33ntwine.com/posts/develop-for-vita/</code><br />
+<strong>Captura archivada en Wayback Machine:</strong> <a href="https://web.archive.org/web/20241206184722/https://gl33ntwine.com/posts/develop-for-vita/">Web Archive (2024-12-06)</a><br />
+<strong>Licencia:</strong> <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>
+<strong>Traducción al español:</strong> Traducción comunitaria del artículo original en inglés. El original permanece intacto en <code>develop-for-vita.md</code>.</p>
+</blockquote>
+<hr />
+<p>¡Hola! Si has llegado hasta aquí, probablemente no necesito contarte lo increíble que es la PlayStation Vita ni lo triste que fue que Sony fallara en su marketing y la abandonara tan rápido. Aun así, me siento obligado a decir que la Vita también es muy curiosa desde la perspectiva de un desarrollador.</p>
+<p>Debes entender que una consola portátil lanzada en 2012 no puede tener las capacidades de una PlayStation 4 y, en la mayoría de los casos, ni siquiera las de una PlayStation 3. Pero los límites de este pequeño hardware veterano siguen siendo más un reto que una molestia en 2022. Creo sinceramente que si te tomas el tiempo de dominar tus técnicas de desarrollo de juegos con PSV, crear software fluido y optimizado para cualquier plataforma de escritorio, móvil o consola te resultará mucho menos problemático.</p>
+<p>Y lo más importante: la escena homebrew de Vita sigue siendo cuidada por mantenedores y desarrolladores, llena de nuevas librerías, lenguajes, motores y demás. Por supuesto, eso también implica una no tan pequeña comunidad de jugadores fieles que disfrutarán y valorarán tus trabajos.</p>
+<p>¿Convencido? :) Vamos al grano.</p>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>Esta guía está planeada para constar de varias partes, empezando con información general y el SDK de Vita en la primera parte, y llegando a otros lenguajes de programación, motores, plugins y ports de Android en las siguientes partes.</p>
+<p>Ten en cuenta que Vita SDK es una cadena de herramientas (toolchain) de C/C++. Así que, para desarrollar cosas usando Vita SDK directamente, necesitas tener algún conocimiento de alguno de estos lenguajes y una buena comprensión de informática en general. ¡Pero no te vayas todavía si no sabes ni C ni C++! Este artículo también contendrá mucha información que puede resultarte útil, sin importar el lenguaje o motor que termines usando. Siéntete libre de usar la navegación de la derecha para saltar a las secciones que más te interesen.</p>
+<blockquote>
+<p>[!TIP]
+Ejecutar cualquier aplicación homebrew en la Vita requiere custom firmware. Si no sabes lo que es o estás a punto de cerrar el artículo, no te preocupes. Es un proceso sencillo y seguro e incluso completamente reversible. Siempre puedes «des-hackear» tu dispositivo y dejarlo como si nunca hubiera pasado nada. Más info: <a href="https://vita.hacks.guide/">https://vita.hacks.guide/</a></p>
+</blockquote>
+<h2 id="resumen-del-hardware-de-vita">Resumen del hardware de Vita<a class="headerlink" href="#resumen-del-hardware-de-vita" title="Permanent link">&para;</a></h2>
+<h3 id="entradas-y-salidas">Entradas y salidas<a class="headerlink" href="#entradas-y-salidas" title="Permanent link">&para;</a></h3>
+<p><img alt="Entradas y salidas de PS Vita" src="../../assets/develop-for-vita-assets/psvita-layout.png" /></p>
+<p>Como puedes ver en el diagrama de arriba, en cuanto a controles, la Vita es prácticamente un mando DualShock 4 con una pantalla táctil de 5 pulgadas en el frontal y su panel táctil movido a la parte trasera. Algunas diferencias importantes a tener en cuenta son que los sticks analógicos no se pueden pulsar, y que no tienes el segundo par de gatillos (L2/R2 en el DS4), solo L/R.</p>
+<p>La buena noticia es que todo lo que ves en el diagrama es accesible desde Vita SDK. Excepto quizá el puerto de accesorios. No estoy seguro de por qué existe siquiera :)</p>
+<h3 id="cpu">CPU<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h3>
+<p>PlayStation Vita lleva un <a href="https://en.wikipedia.org/wiki/ARM_Cortex-A9">ARM Cortex-A9</a>. Por suerte, Sony eligió para la Vita la cómoda, optimizada y bien conocida <strong>arquitectura ARM</strong> en lugar de la bastante exótica MIPS que había usado para la PSP. Por cierto, esta misma CPU fue la que usó Apple para el iPhone 4S y otros dispositivos con el SoC Apple A5.</p>
+<p>La variante de Cortex-A9 de Vita tiene cuatro núcleos a 500 MHz, cada uno con una caché de instrucciones L1 de 32 KiB y una caché de datos de 32 KiB. Además, los cuatro comparten una caché L2 común de 2 MiB.</p>
+<p>Antes de que mires tu procesador i9-99999k a 1337 GHz y decidas que es una causa perdida, déjame recordarte que la CPU de PlayStation 2 funcionaba a 294 MHz y aun así hizo un montón de cosas impresionantes. Además, ¡mira este <a href="https://youtu.be/KlLQlTFIQ6U?t=698">gameplay de Killzone Mercenary</a>! Básicamente, la <del>fama</del> velocidad de reloj no lo es todo. ¡La optimización es la clave!</p>
+<p>Si quieres profundizar en los detalles de la CPU de Vita, te recomiendo leer:</p>
+<ul>
+<li><a href="https://wiki.henkaku.xyz/vita/Main_Processor">«Main Processor» en la Wiki de HENkaku</a>.</li>
+<li><a href="https://playstationdev.wiki/psvitadevwiki/index.php/CPU">«CPU» en la PlayStation Developer Wiki</a>.</li>
+</ul>
+<p>Aquí, centrémonos solo en dos de sus peculiaridades importantes para ti como desarrollador.</p>
+<h4 id="overclocking">Overclocking<a class="headerlink" href="#overclocking" title="Permanent link">&para;</a></h4>
+<p>Para ser precisos, el reloj de la CPU no es de 500 MHz; es de <strong>111 MHz a 500 MHz</strong>. Esta velocidad de reloj se puede cambiar en el lado del usuario usando un plugin como <a href="https://github.com/Electry/PSVshell">PSVShell</a>:</p>
+<p><img alt="Demostración de PSVShell" src="../../assets/develop-for-vita-assets/psvshell.png" /></p>
+<p>La velocidad de reloj estándar de la CPU es de 330 MHz, pero el desarrollador puede forzar un valor más alto en el código <a href="https://github.com/v-atamanenko/osu-octave/blob/6ee14f52f91ca4d49e9b7ffab72e963dd0685f8f/source/main.cpp#L17-L20">así</a>.</p>
+<p>Tal «overclocking» es seguro y no causará sobrecalentamiento ni comportamientos inesperados: en realidad no estamos haciendo overclock, sino revirtiendo el <em>underclock</em> que introdujo Sony para alargar la batería.</p>
+<h4 id="cuarto-nucleo">Cuarto núcleo<a class="headerlink" href="#cuarto-nucleo" title="Permanent link">&para;</a></h4>
+<p>Por defecto, el cuarto núcleo está reservado para procesos del sistema y no puede ser usado por «aplicaciones de juego» (es decir, cualquier aplicación homebrew en nuestro contexto).</p>
+<p>En la mayoría de los casos, el rendimiento de tu juego o aplicación depende de la velocidad de reloj de un solo núcleo. Pero si resulta que tienes una tarea intensiva en multihilo y echas en falta ese cuarto núcleo, existe <a href="https://github.com/GrapheneCt/CapUnlocker">un plugin llamado CapUnlocker</a> de GrapheneCt.</p>
+<p>Para usar el cuarto núcleo teniendo CapUnlocker configurado, especifica 0x80000 como máscara de afinidad de CPU al crear un nuevo hilo. También puedes usar ese valor con <code>sceKernelChangeThreadCpuAffinityMask()</code> para cambiar la máscara de afinidad de un hilo ya existente.</p>
+<p>No te preocupes si aún no entiendes lo que te dice el último párrafo. Solo ten en cuenta que esa opción existe.</p>
+<h3 id="gpu">GPU<a class="headerlink" href="#gpu" title="Permanent link">&para;</a></h3>
+<p>Mientras que la CPU puede considerarse bastante normalita, la GPU de Vita es bastante impresionante. Es un chip <a href="https://en.wikipedia.org/wiki/PowerVR#Series5XT_(SGX)">PowerVR Series5XT</a>, SGX543MP4+, para ser específicos. En términos de GFLOPS, ¡es 11 veces más potente que la PSP, 6 veces más potente que la Nintendo 3DS, y solo 5,5 veces menos potente que la Nintendo Switch!</p>
+<p>La GPU tiene 4 núcleos, cada uno a un máximo de 222 MHz. El overclocking se hace igual que con la CPU, ya sea en el lado del usuario o del desarrollador.</p>
+<p>Si quieres saber más en profundidad sobre la GPU, te recomiendo leer:</p>
+<ul>
+<li><a href="https://wiki.henkaku.xyz/vita/SGX543">«SGX543» en la Wiki de HENkaku</a>.</li>
+<li><a href="https://playstationdev.wiki/psvitadevwiki/index.php/Graphics">«Graphics» en la PlayStation Developer Wiki</a>.</li>
+</ul>
+<h3 id="memoria">Memoria<a class="headerlink" href="#memoria" title="Permanent link">&para;</a></h3>
+<p>Espero que hayas sobrevivido a las dos secciones anteriores con facilidad porque esta puede ser dura, pero sigue siendo muy importante.</p>
+<p>Físicamente, hay dos tipos de RAM: memoria principal (512 MiB) y memoria de vídeo (128 MiB). Empecemos con la memoria de vídeo, que se usa —como su nombre indica— principalmente por la GPU.</p>
+<h4 id="memoria-de-video-vram-128-mib">Memoria de vídeo / VRAM (128 MiB)<a class="headerlink" href="#memoria-de-video-vram-128-mib" title="Permanent link">&para;</a></h4>
+<p>Ambos tipos de memoria están particionados en la Vita. Con la VRAM, es bastante simple:</p>
+<p>1) <strong>CDRAM</strong>: partición de 112 MiB.
+  <code>CDRAM</code> es la memoria de vídeo que puedes usar en tus aplicaciones. A menos que vayas a muy bajo nivel, prácticamente cualquier librería gráfica se encargará de la VRAM por ti, p. ej., almacenando texturas activas y geometría y gestionándola. En la mayoría de los casos, solo tienes que ser consciente de su volumen (de nuevo, 112 MB) para no meter texturas de 8192x8192 en tu juego. Aparte de eso, confía en tu librería/API gráfica.
+2) <strong>Reservada</strong>: partición de 16 MiB.
+  Sí, Sony nos robó el 12,5 % de nuestra memoria de vídeo para necesidades del sistema. Suspiro. No hay nada que podamos hacer al respecto.</p>
+<h4 id="memoria-principal-ram-512-mib">Memoria principal / RAM (512 MiB)<a class="headerlink" href="#memoria-principal-ram-512-mib" title="Permanent link">&para;</a></h4>
+<p>La memoria principal está mucho más particionada:</p>
+<p>1) <strong>USER_RW</strong> (también llamada <strong>MAIN</strong>): partición de 365 MiB.
+  Esta es tu mejor amiga. Prácticamente todo (excepto gráficos y algunas cosas del sistema) usará la memoria <code>USER_RW</code> para almacenamiento. Una nota importante aquí es que, por defecto, <code>USER_RW</code> es de 256 MiB para dejar espacio para la <strong>multitarea</strong>. Con aplicaciones que no usan el máximo total de 365 MiB, puedes ejecutar apps del sistema como el navegador web o el reproductor de música en paralelo. Más adelante en este artículo, hablaré de cómo ajustar el presupuesto de USER_RW en <a href="#paramsfo">la sección de param.sfo</a>.
+2) <strong>PHYCONT</strong>: partición de 26 MiB.
+  <code>PHYCONT</code> es una <em>memoria físicamente contigua</em><sup><a href="https://www.techopedia.com/definition/3769/contiguous-memory-allocation">¿qué es esto?</a></sup>. En la Vita, normalmente se usa para cosas como códecs de vídeo del sistema que requieren este tipo de memoria. Pero en caso de que te quedes sin <code>USER_RW</code> y necesites desesperadamente exprimir algunos MiB más, puedes usar <code>PHYCONT</code>, pero ten en cuenta que debe estar alineada a 1 MiB. Un ejemplo de este uso es <a href="https://github.com/Rinnegatamante/vitaGL/blob/4163e5e8e8dcd383615c7dc267eec2d1bbf404fb/source/utils/mem_utils.c#L259-L271">VitaGL</a>, una capa de compatibilidad entre la API gráfica nativa de PSVita (GXM) ↔ OpenGL.
+3) <strong>CDLG</strong>: partición de 9 MiB.
+  <code>CDLG</code> es una partición que el sistema usa normalmente para <em>diálogos comunes</em>, como los diálogos de entrada del teclado en pantalla. Si aún necesitas exprimir más RAM incluso después de usar <code>PHYCONT</code> y estás seguro de que no usarás diálogos comunes, 8,77 MiB de <code>CDLG</code> están ahí para ayudar (8,77 debido a la alineación a 1024). Un ejemplo de uso de <code>CDLG</code> también se puede encontrar en VitaGL.
+4) <strong>Reservada</strong>: partición de 112 MiB.
+  Los últimos 112 MiB de RAM están reservados por el sistema operativo para diferentes propósitos, como almacenar módulos compartidos, kernel, shell, etc. No hay suerte intentando usar esto.</p>
+<h4 id="cache-de-memoria-y-rendimiento">Caché de memoria y rendimiento<a class="headerlink" href="#cache-de-memoria-y-rendimiento" title="Permanent link">&para;</a></h4>
+<p>TL;DR:</p>
+<ul>
+<li>Existen versiones <strong>UNCACHED</strong> y <strong>CACHED</strong> de <code>USER_RW</code> y <code>PHYCONT</code>. «CACHED» significa usar la caché L1/L2 de la CPU. <code>CDRAM</code> es, por supuesto, siempre UNCACHED. Para el mejor rendimiento en CPU, <code>USER_RW | CACHED</code> es el camino a seguir, y para GPU, empieza con <code>CDRAM</code> hasta llenarla y luego usa variantes <code>UNCACHED</code> de otros tipos de RAM. Otro recordatorio aquí: esta info es útil cuando vas a muy bajo nivel o exprimes hasta el último bit de rendimiento/RAM. Generalmente, todo esto se gestiona por ti.</li>
+</ul>
+<p>No TL;DR:</p>
+<ul>
+<li><a href="https://forum.devchroma.nl/index.php/topic,315.0.html">Elaborada prueba de velocidad de memcpy con diferentes implementaciones y tipos de memoria.</a></li>
+<li><a href="https://wiki.henkaku.xyz/vita/Memory_budget">Más sobre el presupuesto de memoria en la wiki de HENkaku</a></li>
+</ul>
+<h3 id="almacenamiento-y-sistema-de-archivos">Almacenamiento y sistema de archivos<a class="headerlink" href="#almacenamiento-y-sistema-de-archivos" title="Permanent link">&para;</a></h3>
+<p>Superficialmente, podría parecer que no hay casi nada que decir sobre el almacenamiento de Vita. Es comprensible: para un usuario avanzado, un vistazo rápido al gestor de archivos bastaría para entender que todo funciona de forma muy similar a Windows; tienes unas pocas «discos»/particiones para diferentes propósitos del sistema y un árbol típico de archivos/directorios dentro de ellas:</p>
+<p><img alt="Vitashell: resumen de particiones" src="../../assets/develop-for-vita-assets/vitashell-1.png" /></p>
+<p><img alt="Vitashell: raíz de la partición ux0" src="../../assets/develop-for-vita-assets/vitashell-2.png" /></p>
+<p>Pero como siempre, hay algunas cosas que necesitas entender al respecto.</p>
+<h4 id="rendimiento-del-almacenamiento">Rendimiento del almacenamiento<a class="headerlink" href="#rendimiento-del-almacenamiento" title="Permanent link">&para;</a></h4>
+<p>El almacenamiento de Vita es posiblemente su parte menos eficiente. Los desarrolladores a menudo tuvieron que inventar formas de lidiar con tiempos de carga abismales al portear o crear algo, sin experimentar ningún problema de rendimiento de CPU o GPU.</p>
+<p>El <a href="https://github.com/v-atamanenko/baba-is-you-vita">port de Baba Is You</a> es un excelente ejemplo. Mientras que los usuarios promedio de Android no notaron nada extraño, la versión inicial del port tardó <strong>40 minutos</strong> en cargar hasta el menú principal. Otros 20 fueron necesarios para cargar el mapa, y otros 20 para finalmente cargar el nivel. Puedes saber que digo la verdad por el tic en el ojo que me dio ese día.</p>
+<p>La razón exacta de eso fue que, al cargar recursos, el motor intentaba abrir decenas de miles de archivos inexistentes, y aunque parece que es gratis en Android, en Vita no lo era en absoluto. Solo con añadir una lista estática de archivos realmente existentes y buscar en ella antes de intentar acceder al sistema de archivos, redujimos estos tiempos de carga a <strong>meros segundos</strong>.</p>
+<p>Desafortunadamente, ni siquiera importa qué tipo de medio de almacenamiento uses: ya sea la memoria interna, la tarjeta de memoria, SD2Vita (¡por cierto, consigue una si aún no tienes!), disco duro/SSD/pendrive externo, o incluso Wi-Fi o Ethernet. Va a ser lento. Tenlo en cuenta e intenta optimizar tu acceso de E/S tanto como sea posible. Especialmente si trabajas con directorios con muchos archivos; en ese caso, empaquétalos en un archivo comprimido o al menos divide los archivos en varios directorios.</p>
+<p>La velocidad de acceso de E/S se puede mejorar usando una capa de caché Fios2 y algunas llamadas de E/S más eficientes, pero ese es un tema para otro artículo.</p>
+<h4 id="ubicaciones">Ubicaciones<a class="headerlink" href="#ubicaciones" title="Permanent link">&para;</a></h4>
+<p>La partición con la que trabajarás el 99 % del tiempo es <strong>ux0</strong>. Aquí es donde el SO almacena los datos de los juegos instalados, y aquí es donde ponemos nuestras aplicaciones homebrew también. La mayoría de las veces estaría mapeada a SD2Vita (una MicroSD normal insertada en la ranura de tarjetas de juego mediante un adaptador), pero a veces puede ser la tarjeta de memoria o el almacenamiento interno, así que ten cuidado de no desperdiciar demasiado espacio en disco para los usuarios.</p>
+<p>En las secciones posteriores de este artículo, tocaremos <code>ux0:/app</code> y <code>ux0:/data</code>, los dos directorios más importantes para ti como desarrollador.</p>
+<p>Si quieres aprender más sobre cómo funciona el sistema de archivos y lo que puedes encontrar allí, consulta estos enlaces:</p>
+<ul>
+<li><a href="https://wiki.henkaku.xyz/vita/File_Management">«File Management» en la Wiki de HENkaku</a>.</li>
+<li><a href="https://www.psdevwiki.com/vita/Partitions">«Partitions» en la PlayStation Developer Wiki</a>.</li>
+<li><a href="https://www.psdevwiki.com/vita/Files_on_the_PS_Vita">«Files on the PS Vita» en la PlayStation Developer Wiki</a>.</li>
+</ul>
+<h2 id="que-es-vitasdk">Qué es VitaSDK<a class="headerlink" href="#que-es-vitasdk" title="Permanent link">&para;</a></h2>
+<p><a href="https://vitasdk.org/">Vita SDK</a> es una cadena de herramientas de código abierto para el desarrollo de PlayStation Vita. No te sorprendas todavía: por supuesto, Sony no liberó nada como código abierto. La comunidad ha construido progresivamente este SDK analizando y haciendo ingeniería inversa del firmware de Vita.</p>
+<p>El término «Toolchain» en el párrafo anterior se refiere a un conjunto de herramientas de desarrollo, como compilador, enlazador, librerías, etc., que te permiten compilar tu código para que puedas ejecutarlo en la Vita y usar sus funciones específicas de la plataforma, como la pantalla táctil o el giroscopio.</p>
+<p>Vita SDK está construido sobre software de código abierto bien conocido como <a href="https://gcc.gnu.org/">GCC</a>, así que si ya has hecho algo para plataformas tipo Linux antes, rápidamente le cogerás el truco.</p>
+<p>En los últimos años, el cumplimiento POSIX de Vita SDK <sup><a href="https://superuser.com/questions/322601/what-does-it-mean-to-have-a-posix-compliant-operating-system">¿qué es esto?</a></sup> ha llegado al punto de que, a menos que uses funciones de hardware específicas de Vita como sensores de proximidad, tu código puede ser totalmente multiplataforma. Por ejemplo, en <a href="https://web.archive.org/web/20241206184722/https://gl33ntwine.com/p/osu-octave/">mi cliente de osu!</a>, las únicas comprobaciones de plataforma objetivo en el código son para la entrada del panel táctil trasero y el overclocking, como <a href="https://github.com/v-atamanenko/osu-octave/blob/6ee14f52f91ca4d49e9b7ffab72e963dd0685f8f/source/main.cpp#L16">aquí</a>. Por tanto, puede compilarse para plataformas de escritorio tal cual.</p>
+<p>Otra forma de darte una idea general de lo similar que es nuestra cadena de herramientas actual a una cadena normal de Linux es decir que no es raro que el proceso de portear juegos C/C++ con SDL<sup><a href="https://www.libsdl.org/">¿qué es esto?</a></sup> a Vita consista solo en ediciones menores al Makefile/CMakeLists<sup><a href="https://stackoverflow.com/questions/25789644/what-is-the-difference-between-using-a-makefile-and-cmake-to-compile-the-code">¿qué es esto?</a></sup> y ajustar el código de entradas y la resolución de pantalla.</p>
+<h3 id="vitasdk-y-sony-sdk-alguna-diferencia">VitaSDK y Sony SDK — ¿alguna diferencia?<a class="headerlink" href="#vitasdk-y-sony-sdk-alguna-diferencia" title="Permanent link">&para;</a></h3>
+<p>No confundas Vita SDK (o «VitaSDK», «vitasdk») con el SDK oficial de Sony para PSVita, a menudo referido como «sce sdk», «official sdk» o «sony sdk».</p>
+<p>El SDK oficial es software licenciado y con copyright proporcionado por Sony a sus desarrolladores registrados. Probablemente sea ilegal descargarlo o usarlo si Sony no te ha dado permiso directamente. Teóricamente, incluso podrían demandarte por eso, aunque la comunidad nunca ha oído de tales casos.</p>
+<p>A menos que quieras hacer cosas oscuras que nadie en la escena hizo antes, es muy improbable que alguna vez necesites reemplazar Vita SDK por SCE SDK. Personalmente, no recuerdo ningún homebrew que <em>requiriera</em> desarrollarse con él, así de memoria. Bueno, excepto proyectos de Unity (el motor de juegos), pero llegaremos a eso en futuras partes de la guía.</p>
+<h3 id="vale-que-hay-de-dolcesdk-y-vdsuite">Vale, ¿qué hay de dolcesdk y vdsuite?<a class="headerlink" href="#vale-que-hay-de-dolcesdk-y-vdsuite" title="Permanent link">&para;</a></h3>
+<p>Espero que no te haya explotado la cabeza todavía con la cantidad de SDK que tenemos :) Estos son los dos últimos que deberías conocer.</p>
+<p><strong>dolcesdk</strong> fue un fork de VitaSDK con añadidos del código filtrado del SDK oficial. Ahora está obsoleto, así que si encuentras algo que lo use, lo más probable es que puedas portearlo fácilmente a Vita SDK o a vdsuite.</p>
+<p><strong>vdsuite</strong> es aquello en favor de lo cual <strong>dolcesdk</strong> quedó obsoleto. vdsuite aporta añadidos y mejoras al SDK oficial; la comunidad lo actualiza y mantiene regularmente. Como habrás adivinado, está en una zona legal bastante gris, así que úsalo bajo tu propio riesgo.</p>
+<p>Probablemente necesitarías vdsuite si quisieras trabajar en algo que use ScePaf, que es una librería de Sony que permite —entre otras cosas— usar los widgets nativos de la interfaz de Vita (ver <a href="https://github.com/GrapheneCt/NetStream">NetStream</a>, <a href="https://github.com/Ibrahim778/BetterHomebrewBrowser">BetterHomebrewBrowser</a>, <a href="https://github.com/GrapheneCt/PSVshellPlus">PSVshellPlus</a>).</p>
+<p>En un caso normal, Vita SDK es el camino a seguir a menos que sepas que necesitas algunas funciones específicas de vdsuite.</p>
+<h2 id="configurar-vita-sdk">Configurar Vita SDK<a class="headerlink" href="#configurar-vita-sdk" title="Permanent link">&para;</a></h2>
+<p>Vita SDK se puede configurar fácilmente en escritorios Linux, macOS y Windows. Las compilaciones para Raspberry Pi ARM64 y Apple M1 llegarán pronto™; si estás usando una de estas plataformas ahora y no sabes cómo funciona la compilación de toolchains, mejor usa otro dispositivo o espera un tiempo. Por cierto, ¡algunos locos incluso pudieron ejecutarlo en un Nokia N900 con postmarketOS :)</p>
+<p>El proceso de instalación es bastante fácil. Sigue las instrucciones en <a href="https://vitasdk.org/">la página principal de Vita SDK</a> y vuelve aquí si has terminado o tienes algún problema con las variables de entorno (resolver lo cual resulta ser la siguiente sección).</p>
+<h3 id="variables-de-entorno">Variables de entorno<a class="headerlink" href="#variables-de-entorno" title="Permanent link">&para;</a></h3>
+<p>En la página enlazada arriba, puedes ver que uno de los pasos requeridos es establecer la variable de entorno <code>$VITASDK</code> y añadir <code>$VITASDK/bin</code> al <code>$PATH</code> así:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VITASDK</span><span class="o">=</span>/usr/local/vitasdk
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$VITASDK</span>/bin:<span class="nv">$PATH</span><span class="w"> </span><span class="c1"># add vitasdk tool to $PATH</span>
+</span></code></pre></div>
+<p>Lo que a veces causa confusión es que <em>el lugar donde ponerlas</em> no es universal. Para saber dónde poner tus variables de entorno, haz lo siguiente en tu terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>~<span class="w"> </span><span class="c1"># this will take you to your home directory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ls<span class="w"> </span>-d<span class="w"> </span>.*<span class="w"> </span><span class="c1"># this will show all hidden ("dot") files</span>
+</span></code></pre></div>
+<p>Por ejemplo, en mi macOS Monterey, no tengo ni <code>.bash_profile</code> ni <code>.bashrc</code> mencionados por Vita SDK. Esta es la salida de los comandos anteriores:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>v@mbp<span class="w"> </span>~<span class="w"> </span>%<span class="w"> </span>ls<span class="w"> </span>-d<span class="w"> </span>.*
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>.CFUserTextEncoding<span class="w">  </span>.DS_Store<span class="w">     </span>.Trash
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>.bitnami<span class="w">             </span>.bundle<span class="w">       </span>.gitconfig
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>.gem<span class="w">                 </span>.ghidra<span class="w">       </span>.ssh
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>.viminfo<span class="w">             </span>.zsh_history<span class="w">  </span>.zshrc
+</span></code></pre></div>
+<p>¡Pero sí tengo <code>.zshrc</code>! <a href="https://www.zsh.org/">Zsh</a> es otra shell, un reemplazo de <a href="https://www.gnu.org/software/bash/">Bash</a> que se convirtió en la predeterminada en macOS hace unas versiones. Por tanto, <code>.zshrc</code> es el lugar donde debería poner estas líneas.</p>
+<p>Si no tienes nada similar a <code>.bash_profile</code>, <code>.bashrc</code> o <code>.zshrc</code>, prueba a crear un nuevo archivo llamado <code>.bashrc</code> y úsalo en su lugar.</p>
+<p>Después de hacer esto, reinicia tu Terminal y comprueba si funcionó con el siguiente comando:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$VITASDK</span><span class="w"> </span><span class="c1"># should print whatever you set as the vitasdk path in the variable</span>
+</span></code></pre></div>
+<p>Si la salida de este comando está vacía hagas lo que hagas, e incluso googlear no ayudó, todavía hay un último recurso, pero tendrás que hacerlo cada vez que inicies la terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>~/.bashrc<span class="w"> </span><span class="c1"># or whatever the file you put variables into is named</span>
+</span></code></pre></div>
+<p>Esto cargará forzosamente las variables de entorno, y estarás listo para continuar la instalación.</p>
+<h3 id="hola-mundo">Hola mundo<a class="headerlink" href="#hola-mundo" title="Permanent link">&para;</a></h3>
+<p>Sí, por fin, estamos listos para hacer algo palpable :) Vamos a coger <code>vitasdk/samples</code> de GitHub y compilar una aplicación hola-mundo:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>/your/preferred/working/directory/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/vitasdk/samples
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">cd</span><span class="w"> </span>samples/hello_world
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>cmake<span class="w"> </span>.
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>make
+</span></code></pre></div>
+<p>Si no fastidiaste la instalación, esto debería producir un archivo <code>hello_world.vpk</code> listo para ejecutarse en tu Vita. Para ejecutarlo, haz lo siguiente:</p>
+<ul>
+<li>Envía el <code>hello_world.vpk</code> generado a tu Vita:</li>
+<li>Inicia un servidor FTP en tu Vita (por ejemplo, con <a href="https://github.com/TheOfficialFloW/VitaShell#vitashell">VitaShell</a> - pulsando el botón SELECT).</li>
+<li>Sube el <code>.vpk</code> a la Vita usando tu cliente FTP (por ejemplo, FileZilla o simplemente curl a secas)</li>
+<li>Instala el <code>.vpk</code> en tu Vita usando un instalador de VPK (por ejemplo, con VitaShell - pulsando el botón X sobre el .vpk)</li>
+</ul>
+<p>Finalmente, en tu pantalla principal, aparecerá una nueva burbuja «Hello World» que puedes ejecutar y contemplar algo como esto:</p>
+<p><img alt="Hola Mundo de PS Vita en ejecución" src="../../assets/develop-for-vita-assets/helloworld.png" /></p>
+<h2 id="configurar-el-entorno-de-desarrollo-y-depuracion">Configurar el entorno de desarrollo y depuración<a class="headerlink" href="#configurar-el-entorno-de-desarrollo-y-depuracion" title="Permanent link">&para;</a></h2>
+<p>Ahora, cuando ya aprendiste lo básico del hardware de Vita y los SDK, configuraste tu propia copia de Vita SDK, e incluso compilaste tu primera aplicación con él, estás prácticamente listo para empezar a desarrollar o portear lo que quieras por tu cuenta.</p>
+<p>Pero, para hacer este proceso un poco más consciente que simplemente «editar el hola mundo en el Bloc de notas hasta que se convierta en un juego», repasemos varios aspectos clave del mismo.</p>
+<h3 id="desarrollo">Desarrollo<a class="headerlink" href="#desarrollo" title="Permanent link">&para;</a></h3>
+<p>Como Vita SDK es una cadena de herramientas C/C++ normal, puedes escribir código usando lo que quieras. Visual Studio Code, Sublime Text y Notepad++ son algunas de las opciones más populares.</p>
+<p>Personalmente, prefiero JetBrains CLion por sus potentes capacidades de IDE como ayudantes de refactorización, depurador totalmente integrado, clangd, IntelliSense, etc., pero es de pago.</p>
+<p>Vita SDK ofrece una gran variedad de librerías de código abierto ya porteadas, así como un bastante buen nivel de cumplimiento POSIX, permitiendo así que la mayoría del código multiplataforma funcione tal cual. Repasaremos algunas de esas librerías y APIs gráficas en una de las secciones posteriores de este artículo.</p>
+<p>Para futura referencia, en Vita SDK, la librería estándar de C (libc) está implementada a través de un <a href="https://github.com/vitasdk/newlib/">port de newlib</a>, y la librería estándar de C++ (libstdc++) la proporciona GCC.</p>
+<h3 id="compilacion">Compilación<a class="headerlink" href="#compilacion" title="Permanent link">&para;</a></h3>
+<p>De nuevo, como Vita SDK es una cadena de herramientas C/C++ normal, probablemente puedas usar cualquier generador / sistema de compilación que quieras que pueda trabajar con compiladores <code>gcc</code>/<code>g++</code> (incluso algo como Ninja o Meson).</p>
+<p>Hay dos opciones más comunes que te permitirán encontrar más respuestas en internet cuando lo necesites, así como ahorrar tiempo a tus colaboradores:</p>
+<ul>
+<li><a href="https://www.gnu.org/software/make/">GNU Make</a>
+El estándar durante muchas décadas, perfecto para proyectos simples (en el sentido de «pequeños» y «fáciles en dependencias»). <a href="https://github.com/vitasdk/samples/blob/master/hello_world/Makefile">Ejemplo de Makefile para un proyecto de Vita.</a></li>
+<li><a href="https://cmake.org/">CMake</a>
+Alternativa más moderna a Make, perfecta para proyectos más complejos o multiplataforma. <a href="https://github.com/vitasdk/samples/blob/master/hello_world/CMakeLists.txt">Ejemplo de CMakeLists.txt para un proyecto de Vita.</a></li>
+</ul>
+<p>Para este y posteriores artículos, usaré solo <strong>CMake</strong>. Para mí tiene una sintaxis más intuitiva y un montón de macros útiles que facilitan la gestión de dependencias y la configuración de proyectos para Vita específicamente.</p>
+<p>El CMakeLists.txt de ejemplo enlazado arriba es un buen lugar para empezar a entender cómo configurar sistemas de compilación para proyectos de Vita. Otra buena idea es mirar el código fuente de algunos ports y compararlos con los sistemas de compilación originales:</p>
+<ul>
+<li>Un <a href="https://github.com/v-atamanenko/blues-vita/blob/ed08706d776018fd8ea8aa43333873081b2ddc1d/CMakeLists.txt">CMakeLists.txt</a> hecho manualmente a partir del <a href="https://github.com/cyxx/blues/blob/140d278724ae2d26f8328cb822f36cff4ef73c8e/Makefile">Makefile</a> para un port de un juego SDL2 (Blues Brothers).</li>
+<li>Una <a href="https://github.com/arx/ArxLibertatis/compare/master...v-atamanenko:ArxLibertatis:master#diff-1e7de1ae2d059d21e1dd75d5812d5a34b0222cef273b7c3a2af62eb747f9d20a">diferencia (diff) Escritorio vs Vita</a> de un CMakeLists.txt bastante complejo para un port de un juego 3D antiguo (Arx Libertatis).</li>
+</ul>
+<h4 id="formato-ejecutable">Formato ejecutable<a class="headerlink" href="#formato-ejecutable" title="Permanent link">&para;</a></h4>
+<p>Algo que vale la pena señalar es que, a diferencia de, digamos, los binarios de Linux, los ejecutables de PSVita no son simples ELF<sup><a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">¿qué es esto?</a></sup>.</p>
+<p>Cuando compilas un programa con VitaSDK, pasa por varias etapas:</p>
+<ol>
+<li>El compilador y el enlazador crean un ELF estándar. Por defecto, este aparecería como un archivo sin extensión en tu directorio de compilación.</li>
+<li>El ELF se convierte en un VELF usando <code>vita-elf-create</code> de la toolchain. Es la versión propia de Sony del formato ELF que tiene información extra sobre los módulos (básicamente, librerías) usados en la aplicación. Este sería el archivo con extensión <code>.velf</code> en tu directorio de compilación.</li>
+<li>El VELF se convierte en un (F)SELF usando <code>vita-make-fself</code> de la toolchain. SELF es la etapa final de un ejecutable tal como se almacenaría en el sistema de archivos de Vita; básicamente, es una versión cifrada del VELF. FSELF significa «Fake SELF». FSELF se diferencia de un SELF oficial normal en que no tiene firma propietaria que no podamos reproducir con VitaSDK. De ahí que las aplicaciones homebrew solo funcionen en consolas hackeadas: evitan la comprobación de firma.</li>
+</ol>
+<p>Verás en las siguientes secciones por qué es útil saber esta información.</p>
+<h4 id="despliegue-rapido">Despliegue rápido<a class="headerlink" href="#despliegue-rapido" title="Permanent link">&para;</a></h4>
+<p>Reinstalar el VPK usando VitaShell cada vez que haces una nueva compilación es inconveniente, por decir lo menos. Hay dos cosas que puedes hacer para que este proceso sea mucho más rápido y simple, y solo necesitarás instalar tu VPK una vez.</p>
+<p>Primero, en lugar de reinstalar el VPK, puedes simplemente reemplazar el SELF instalado por uno nuevo. Está ubicado en <code>ux0:app/{TITLEID}/eboot.bin</code>, donde <code>TITLEID</code> es el identificador único de tu app que especificas en el Makefile/CMakeLists (<a href="https://github.com/vitasdk/samples/blob/97381cf9240e944ab1529587963a5f99b9e03f26/hello_world/CMakeLists.txt#L26-L28">ejemplo</a>), y <code>eboot.bin</code> es el nombre estándar del ejecutable principal de la aplicación en la PSVita.</p>
+<p>Como habrás notado, el Makefile/CMakeLists de ejemplo en VitaSDK tiene <code>${PROJECT_NAME}.self</code> <a href="https://github.com/vitasdk/samples/blob/97381cf9240e944ab1529587963a5f99b9e03f26/hello_world/CMakeLists.txt#L65-L68">especificado como nombre de archivo del SELF</a>. Recomiendo cambiar eso a <code>eboot.bin</code> por comodidad.</p>
+<p>Segundo, hay un gran plugin llamado <a href="https://github.com/devnoname120/vitacompanion">vitacompanion</a>. Mantiene un servidor FTP en segundo plano funcionando en tu Vita en todo momento y también escucha algunos comandos que podemos aprovechar. (Por favor tómate el tiempo de leer el readme completo del proyecto.)</p>
+<blockquote>
+<p>[!TIP]
+Si nunca instalaste plugins antes, consulta <a href="https://cimmerian.gitbook.io/vita-troubleshooting-guide/plugins-related-problem/error-when-using-autoplugin">la guía de Samilop</a> o la página principal de <a href="https://tai.henkaku.xyz/">taiHEN (el framework que potencia el sistema de plugins)</a> para más información.</p>
+</blockquote>
+<p>Con vitacompanion instalado, puedes compilar y ejecutar tu homebrew usando un solo comando. Defino el siguiente target personalizado en los CMakeLists de todos mis homebrews:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">set</span><span class="p">(</span><span class="s">PSVITAIP</span><span class="w"> </span><span class="s2">"192.168.0.198"</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">"PSVita IP (for FTP access)"</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">send</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">                  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">echo</span><span class="w"> </span><span class="s">destroy</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">nc</span><span class="w"> </span><span class="o">${</span><span class="nv">PSVITAIP</span><span class="o">}</span><span class="w"> </span><span class="s">1338</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">                  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">curl</span><span class="w"> </span><span class="s">-T</span><span class="w"> </span><span class="s">eboot.bin</span><span class="w"> </span><span class="s">ftp://</span><span class="o">${</span><span class="nv">PSVITAIP</span><span class="o">}</span><span class="s">:1337/ux0:/app/</span><span class="o">${</span><span class="nv">VITA_TITLEID</span><span class="o">}</span><span class="s">/</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">                  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">echo</span><span class="w"> </span><span class="s">launch</span><span class="w"> </span><span class="o">${</span><span class="nv">VITA_TITLEID</span><span class="o">}</span><span class="w"> </span><span class="s">|</span><span class="w"> </span><span class="s">nc</span><span class="w"> </span><span class="o">${</span><span class="nv">PSVITAIP</span><span class="o">}</span><span class="w"> </span><span class="s">1338</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">                  </span><span class="s">DEPENDS</span><span class="w"> </span><span class="o">${</span><span class="nv">VITA_VPKNAME</span><span class="o">}</span><span class="s">.vpk-vpk</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">                  </span><span class="p">)</span>
+</span></code></pre></div>
+<p>Este target personalizado espera a que se complete la compilación, envía un comando <code>destroy</code> a vitacompanion para cerrar las apps en ejecución, sube el SELF recién compilado y lanza la aplicación. Todo en un comando desde tu terminal:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--target<span class="w"> </span>send<span class="w"> </span><span class="c1"># en lugar del normal cmake --build build</span>
+</span></code></pre></div>
+<h3 id="depuracion">Depuración<a class="headerlink" href="#depuracion" title="Permanent link">&para;</a></h3>
+<p>Ahora la parte más interesante… Mientras que los desarrolladores con licencia de Sony podían disfrutar de una selección bastante versátil de herramientas de depuración, con VitaSDK estamos limitados a usar unas pocas cosas básicas.</p>
+<h4 id="registro-de-eventos-logging">Registro de eventos (logging)<a class="headerlink" href="#registro-de-eventos-logging" title="Permanent link">&para;</a></h4>
+<p>La primera sería el <strong>logging</strong>, lo grande y terrible. Por mucho que sea un meme, tener un logging extenso para tu juego o aplicación de Vita es imprescindible.</p>
+<p>Siempre puedes optar por registrar en un archivo, pero es mucho más productivo ver tus logs (stdout) en tiempo real en tu PC. Hay dos plugins útiles para lograrlo:</p>
+<ol>
+<li><a href="https://github.com/isage/catlog">Cat-A-Log</a>
+  Básicamente una continuación de <a href="https://forum.devchroma.nl/index.php?topic=80.0">PrincessLog</a> que tiene integración nativa con la app de Ajustes y un molesto bug de configuración corregido. Te permite ver la salida de logging usando <code>netcat</code>. Las instrucciones de configuración están disponibles en el enlace de arriba.</li>
+<li><a href="https://forum.devchroma.nl/index.php?topic=136.0">PSMLogUSB</a>
+  Casualmente, también una continuación de PrincessLog, pero en este caso adaptada para redirigir stdout a un dispositivo serie USB. Si, por alguna razón, te gustan los cables o no puedes poner tu Vita en la misma red local que tu PC, usa este.</li>
+</ol>
+<p>Técnicamente, hay una tercera vía: hacer un <a href="https://forum.devchroma.nl/index.php/topic,79.msg135.html">mod de hardware UART</a>, pero en la mayoría de los casos, eso es un poco excesivo en mi opinión.</p>
+<h4 id="analizar-volcados-de-memoria-crash-dumps">Analizar volcados de memoria (crash dumps)<a class="headerlink" href="#analizar-volcados-de-memoria-crash-dumps" title="Permanent link">&para;</a></h4>
+<p>Cuando algo malo sucede en lugares donde no puedes añadir logging, tu única esperanza son los crashdumps.</p>
+<p>Cada vez que un error irrecuperable obliga a la aplicación a cerrarse, el SO de PS Vita crea un volcado del estado de los registros de la CPU, la pila y más información útil. Esos volcados se guardan en <code>ux0:/data/</code> en archivos llamados como <code>psp2core-[algunos-dígitos]-[nombre_del_ejecutable].psp2dmp</code>.</p>
+<p>Al pasar uno de esos volcados y un ELF a <a href="https://github.com/xyzz/vita-parse-core">vita-parse-core</a>, puedes ver toda esa información volcada y, en la mayoría de los casos, un desensamblado alrededor del lugar donde la aplicación falló. El repositorio enlazado también tiene una salida de ejemplo que puede darte una idea general de con qué estarás lidiando.</p>
+<blockquote>
+<p>[!WARNING]
+Fíjate en que específicamente mencioné <strong>ELF</strong> en el párrafo anterior. No intentes pasar un VELF o un SELF a vita-parse-core; esto no funcionará. No te olvides de <a href="#formato-ejecutable">los formatos ejecutables</a> que discutimos arriba.</p>
+</blockquote>
+<p>Descargar manualmente los crash dumps y ejecutar el script cada vez se vuelve molesto bastante rápido, así que recomendaría configurar otro atajo aquí, igual que hicimos con la subida de un SELF recién compilado.</p>
+<p>Para hacer eso, primero, crea un script Bash con los siguientes contenidos en algún lugar de tu directorio de proyecto. Este script obtiene el archivo más nuevo con extensión <code>.psp2dmp</code> de tu Vita y lo guarda como <code>coredump</code>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>curl<span class="w"> </span><span class="s2">"ftp://</span><span class="nv">$1</span><span class="s2">:1337/ux0:/data/"</span><span class="k">$(</span>curl<span class="w"> </span><span class="s2">"ftp://</span><span class="nv">$1</span><span class="s2">:1337/ux0:/data/"</span><span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>psp2core<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $(NF)}'</span><span class="k">)</span><span class="w"> </span>--output<span class="w"> </span>coredump
+</span></code></pre></div>
+<p>Y en tu CMakeLists, define otro target personalizado como sigue (no olvides ajustar las rutas):</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">set</span><span class="p">(</span><span class="s">PSVITAIP</span><span class="w"> </span><span class="s2">"192.168.0.198"</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">"PSVita IP (for FTP access)"</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">set</span><span class="p">(</span><span class="s">PARSECOREPATH</span><span class="w"> </span><span class="s2">"/your/path/to/vita-parse-core/main.py"</span><span class="w"> </span><span class="s">CACHE</span><span class="w"> </span><span class="s">STRING</span><span class="w"> </span><span class="s2">"vita-parse-core main.py"</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">add_custom_target</span><span class="p">(</span><span class="s">dump</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">                  </span><span class="s">COMMAND</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/bash-script-you-just-created.sh</span><span class="w"> </span><span class="o">${</span><span class="nv">PSVITAIP</span><span class="o">}</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">                  </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">python3</span><span class="w"> </span><span class="o">${</span><span class="nv">PARSECOREPATH</span><span class="o">}</span><span class="w"> </span><span class="s">coredump</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_PROJECT_NAME</span><span class="o">}</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">                  </span><span class="p">)</span>
+</span></code></pre></div>
+<p>Ahora, con eso configurado, cada vez que tu aplicación falle, puedes simplemente hacer <code>cmake --build build --target dump</code> para obtener inmediatamente un crash dump analizado en tu terminal.</p>
+<h4 id="gdb-kvdb">gdb (kvdb)<a class="headerlink" href="#gdb-kvdb" title="Permanent link">&para;</a></h4>
+<p>Gracias a Davee, también tenemos un depurador compatible con gdb - <a href="https://github.com/DaveeFTW/kvdb">kvdb</a>. En teoría, debería proporcionarte todas esas funciones geniales que tienen los buenos depuradores, como backtrace, breakpoints, monitoreo de variables, etc.</p>
+<p>Pero desafortunadamente, kvdb nunca pasó de la etapa alfa, así que es bastante defectuoso, poco fiable y difícil de configurar. Quizá en el futuro haga un artículo separado sobre cómo configurarlo y usarlo, pero por ahora te aconsejaría evitarlo a menos que estés absolutamente sin opciones.</p>
+<h4 id="herramientas-del-sdk-de-sony">Herramientas del SDK de Sony<a class="headerlink" href="#herramientas-del-sdk-de-sony" title="Permanent link">&para;</a></h4>
+<p>Aunque limitadas, todavía hay algún uso que se podría hacer de las herramientas oficiales del SDK incluso con aplicaciones compiladas con VitaSDK. Un ejemplo sería la captura de GPU, que puede ser irreemplazable al depurar bugs gráficos. Ten en cuenta, sin embargo, que la legalidad de usar estas herramientas es muy cuestionable.</p>
+<p>Aun así, este es su propio tema y en un nivel más avanzado. Con suerte, en el futuro también escribiré un artículo separado sobre eso.</p>
+<h2 id="motores-librerias-apis-graficas">Motores, librerías, APIs gráficas<a class="headerlink" href="#motores-librerias-apis-graficas" title="Permanent link">&para;</a></h2>
+<p>¿Cansado ya? :) No te preocupes, estamos cerca del final, pero todavía hay cosas importantes que cubrir. Específicamente, en esta sección, repasemos la amplia variedad de cosas prefabricadas como librerías y motores que puedes usar para potenciar tu homebrew.</p>
+<h3 id="controladores-gpu-drivers">Controladores GPU (drivers)<a class="headerlink" href="#controladores-gpu-drivers" title="Permanent link">&para;</a></h3>
+<p>Empezando en el nivel más bajo y más importante, cuando se trata de gráficos en Vita, tienes dos opciones de controlador gráfico, <strong>GXM</strong> (también conocido como SceGxm) y <strong>PVR_PSP2</strong>. Nota: probablemente puedas saltarte esta sección si planeas usar una librería o motor de alto nivel.</p>
+<h4 id="gxm-vitagl">GXM (+ VitaGL)<a class="headerlink" href="#gxm-vitagl" title="Permanent link">&para;</a></h4>
+<p>GXM es una API gráfica nativa de PlayStation Vita. Piensa en ella como una mezcla de OpenGL y DirectX específicamente adaptada a esta consola.</p>
+<p>Puedes usar GXM puro para implementar tu renderizado, pero para eso necesitarás aprender la API y sus peculiaridades, lo cualHonestamente es una habilidad bastante inútil a futuro. Incluso si puedes obtener algunas ganancias menores de rendimiento usando GXM directamente, recomendaría usar <a href="https://github.com/Rinnegatamante/vitaGL">VitaGL</a> en su lugar.</p>
+<p><a href="https://github.com/Rinnegatamante/vitaGL">VitaGL</a> es una librería que actúa como puente entre la API nativa GXM de la consola y OpenGL. Esto permite a los desarrolladores portear o desarrollar más fácilmente juegos y aplicaciones que originalmente usan OpenGL. Básicamente, escribes tu código OpenGL normal, y VitaGL implementa estos métodos OpenGL usando sus equivalentes cercanos en GXM nativo.</p>
+<p>Antes de 2023, una desventaja considerable de usar GXM/VitaGL era el hecho de que GXM usa shaders Cg, a diferencia de muchas otras plataformas que usan GLSL. Pero ahora VitaGL incluye también un traductor automático de shaders, y en casi todos los casos funcionan con ajustes menores o nulos.</p>
+<p>Considerándolo todo, GXM/VitaGL es la forma predeterminada a seguir.</p>
+<h4 id="pvr_psp2">PVR_PSP2<a class="headerlink" href="#pvr_psp2" title="Permanent link">&para;</a></h4>
+<p><a href="https://github.com/GrapheneCt/PVR_PSP2">PVR_PSP2</a> es un proyecto muy interesante. No entraré en detalle sobre sus orígenes, pero debes saber que es más bien una zona gris, y aunque Sony ha demostrado que no le importa la Vita en absoluto, esto tiene que ver con otra compañía.</p>
+<p>Es básicamente un controlador first-party que, hasta donde sé, nunca se usó comercialmente, pero fue encontrado y arreglado para que realmente funcione. El principal punto de interés sobre este controlador es su soporte nativo para OpenGL ES 1.4 / 2.2 y shaders GLSL. A diferencia de VitaGL y algunas otras librerías que surgieron en el pasado, es un controlador de bajo nivel, que no usa SceGxm en absoluto. Por tanto, es bastante lógico ponerlo en el mismo estante que SceGxm mismo. Aunque en la práctica, la elección suele ser «PVR_PSP2 vs VitaGL», no explícitamente «PVR_PSP2 vs GXM».</p>
+<p>En cuanto a rendimiento, PVR_PSP2 es comparable a VitaGL. Nadie ha hecho aún un benchmark completo, pero por experiencia, en algunos lugares VitaGL rinde mejor, en otros —PVR_PSP2. En cuanto a cumplimiento, hasta mayo de 2024 hemos visto algunos casos donde PVR_PSP2 estropeó el renderizado mientras VitaGL funcionaba bien. Un caso conocido de lo contrario es el port de HoMM3:HD, pero eventualmente el bug responsable en VitaGL fue corregido.</p>
+<h3 id="librerias">Librerías<a class="headerlink" href="#librerias" title="Permanent link">&para;</a></h3>
+<h4 id="gxm">GXM<a class="headerlink" href="#gxm" title="Permanent link">&para;</a></h4>
+<p>Si elegiste GXM como tu controlador principal, aquí hay una lista de las cosas más grandes (de nivel bastante bajo) que puedes usar con él:</p>
+<ul>
+<li><strong>[Vía VitaGL]: OpenGL 1/2 de escritorio</strong> (con muchas extensiones y algunas partes de GL3). Shaders Cg, GLSL (vía traductor automatizado).</li>
+<li><strong>[Vía VitaGL]: OpenGL ES 1/2</strong> (con muchas extensiones y algunas partes de GLES3). Shaders Cg, GLSL (vía traductor automatizado).</li>
+<li><strong>SDL1</strong>: no deberías usarlo para proyectos nuevos (ya que está bastante desactualizado y superado por SDL2) pero está listo para portear.</li>
+<li><strong>SDL2</strong>: el soporte de Vita está en upstream, úsalo libremente. <code>SDL_GL</code> está disponible ya sea vía PVR_PSP2 o <a href="https://github.com/Northfear/SDL">el fork de Northfear</a>.</li>
+<li><strong>libvita2d</strong>: librería 2D simple acelerada por GPU.</li>
+</ul>
+<blockquote>
+<p>[!TIP]
+VitaGL, SDL1, SDL2 y libvita2d vienen con tu instalación de Vita SDK por defecto. Pero para soporte SDL2 SDL_GL, necesitarías recompilar la librería tú mismo.
+- <a href="https://wiki.libsdl.org/SDL2/README/vita">Instrucciones para el contexto OGL de PVR_PSP2</a>.
+- <a href="https://github.com/Northfear/SDL#readme">Instrucciones para el contexto OGL de VitaGL</a>.</p>
+</blockquote>
+<h4 id="pvr_psp2_1">PVR_PSP2<a class="headerlink" href="#pvr_psp2_1" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>OpenGL ES 1/2 nativo</strong>, shaders GLSL.</li>
+<li><strong>OpenGL de escritorio</strong> vía <a href="https://github.com/SonicMastr/gl4es4vita">GL4ES</a>.</li>
+<li><strong>SDL2</strong>: ver arriba.</li>
+</ul>
+<h4 id="otras">Otras<a class="headerlink" href="#otras" title="Permanent link">&para;</a></h4>
+<p>Hablando de librerías en general, tenemos muchas de las más populares ya porteadas, y muchas de ellas se instalan con Vita SDK automáticamente. Ejemplos notables son boost, OpenAL, box2d, freetype, libpng, zlib, OpenSSL y muchas otras. Puedes ver <a href="https://github.com/vitasdk/packages">la lista completa en vitasdk/packages</a> e instalarlas escribiendo <code>vdpm [nombre_del_paquete]</code> en tu terminal.</p>
+<h3 id="motores">Motores<a class="headerlink" href="#motores" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unity (hasta 2018.2.21f1)</strong>. Legalmente tienes que ser un desarrollador licenciado para usarlo. <a href="https://www.patreon.com/posts/guide-how-to-to-24906451">Aquí hay una guía de todos modos</a>.</li>
+<li><a href="https://github.com/SonicMastr/godot-vita/releases">Godot (hasta 3.5.rc5)</a></li>
+<li><a href="https://github.com/SonicMastr/renpy-vita">Ren'Py</a></li>
+<li><a href="https://docs.scummvm.org/en/v2.7.0/other_platforms/playstation_vita.html">ScummVM</a></li>
+<li><a href="https://github.com/EasyRPG/Player">RPG Maker 2000 / 2003 / EasyRPG</a></li>
+<li><a href="https://github.com/rsn8887/openbor">OpenBOR</a></li>
+<li><a href="https://gamemaker.io/en">Game Maker</a>. Nota: necesitarías exportar el juego para la plataforma Android y usar <a href="https://github.com/Rinnegatamante/yoyoloader_vita">YoYo Loader</a> para llevar tu juego a Vita.</li>
+<li><strong>Varios motores idTech</strong>: <a href="https://github.com/Rinnegatamante/vitaWolfen">motor de Wolfenstein 3D</a>, <a href="https://github.com/aagallag/Vita_Doom">id Tech 1</a>, <a href="https://github.com/Rinnegatamante/vitaQuakeII">id Tech 2</a>, <a href="https://github.com/Rinnegatamante/vitaQuakeIII">id Tech 3</a>, incluso <a href="https://github.com/Rinnegatamante/d3es-vita">una PoC de id Tech 4</a>.</li>
+<li><strong>Derivados de motores idTech</strong>: como <a href="https://vitadb.rinnegatamante.it/#/info/716">Quakespasm-Spiked</a>, <a href="https://vitadb.rinnegatamante.it/#/info/377">Chocolate Doom</a>, y otros.</li>
+<li><strong>GoldSrc</strong> (vía <a href="https://vitadb.rinnegatamante.it/#/info/1157">Xash3D</a>).</li>
+<li>Y muchos más.</li>
+</ul>
+<h2 id="entendiendo-el-vpk">Entendiendo el VPK<a class="headerlink" href="#entendiendo-el-vpk" title="Permanent link">&para;</a></h2>
+<p>Como ya sabes, las aplicaciones homebrew para PS Vita se distribuyen en un paquete VPK. Podrías hacerlo manualmente si quisieras, pero normalmente se gestiona vía la utilidad <code>vita-pack-vpk</code> de la toolchain (en CMake, se usa vía <code>vita_create_vpk</code> como habrás visto en los ejemplos).</p>
+<p>En esencia, VPK es muy similar al APK de Android o al IPA de iOS. Básicamente, es solo un archivo .zip normal que tiene requisitos específicos para su contenido. Cuando «instalas» un VPK, lo que sucede en realidad es solo que el archivo se desempaqueta en los directorios correctos y se llaman algunas funciones del sistema para actualizar las bases de datos de aplicaciones y hacer que la burbuja aparezca en tu pantalla principal.</p>
+<p>Repasemos la estructura de un VPK:</p>
+<table>
+<thead>
+<tr>
+<th>Nombre de archivo</th>
+<th>Requerido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/eboot.bin</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>/sce_sys/param.sfo</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>/sce_sys/icon0.png</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/sce_sys/pic0.png</td>
+<td>No</td>
+</tr>
+<tr>
+<td>/sce_sys/livearea/contents/template.xml</td>
+<td>No</td>
+</tr>
+<tr>
+<td>[cualquier otro archivo]</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Ya sabes acerca de <code>eboot.bin</code> - ese sería el ejecutable principal de tu aplicación. Hablemos del resto de estos archivos en orden.</p>
+<h3 id="paramsfo">param.sfo<a class="headerlink" href="#paramsfo" title="Permanent link">&para;</a></h3>
+<p>En resumen, <code>param.sfo</code> es un archivo que contiene metadatos importantes sobre tu aplicación, como su nombre, TITLEID (el identificador único), versión y algunas banderas del sistema que indican al sistema operativo cómo manejar la app. Continuando con la analogía de Android, esto sería el Manifiesto de la Aplicación.</p>
+<p><code>param.sfo</code> puede crearse usando la utilidad <code>vita-mksfoex</code> de la toolchain si quieres hacerlo manualmente. En CMake, se hace por ti entre bastidores, pero puedes establecer parámetros para <code>vita-mksfoex</code> usando la variable <code>VITA_MKSFOEX_FLAGS</code>, así:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">set</span><span class="p">(</span><span class="s">VITA_MKSFOEX_FLAGS</span><span class="w"> </span><span class="s2">"-d ATTRIBUTE2=12"</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Esto llevará a que CMake ejecute algo como esto para ti como paso de compilación automáticamente:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>vita-mksfoex<span class="w"> </span>-s<span class="w"> </span><span class="nv">APP_VER</span><span class="o">=</span><span class="m">1</span>.00<span class="w"> </span>-s<span class="w"> </span><span class="nv">TITLE_ID</span><span class="o">=</span>APPL00001<span class="w"> </span>-d<span class="w"> </span><span class="nv">ATTRIBUTE2</span><span class="o">=</span><span class="m">12</span><span class="w"> </span><span class="s2">"My Cool Application"</span><span class="w"> </span>param.sfo
+</span></code></pre></div>
+<blockquote>
+<p>[!TIP]
+Si alguna vez quieres modificar un juego retail o homebrew existente, usar <code>vita-mksfoex</code> directamente puede serte útil. Más notablemente, si quieres poder tener dos copias del mismo juego base instaladas al mismo tiempo, puedes generar un nuevo <code>param.sfo</code> para él con un TITLEID diferente.</p>
+</blockquote>
+<p>Así que, si usas una configuración normal de CMake, <code>TITLE_ID</code>, <code>APP_VER</code> y el nombre de la aplicación se rellenan por ti en la invocación de <code>vita-mksfoex</code> usando las respectivas variables que defines en tu CMakeLists. Pero además de estas estándar, hay algunas banderas muy útiles que quizá quieras usar.</p>
+<p>Aquí hay una pequeña chuleta con formato y descripción de algunas de las banderas más importantes:</p>
+<ul>
+<li><code>-s APP_VER=XX.YY</code>
+Versión de la aplicación. El formato es <code>XX.YY</code> donde <code>XX</code> y <code>YY</code> son números, y el punto <code>.</code> está incluido en la cadena, p. ej.: <code>01.00</code> para la primera versión estable publicada.</li>
+<li><code>-d ATTRIBUTE2=X</code>
+Bandera que establece el modo de memoria extendida. Los valores conocidos son: <code>4</code> para +29 MiB, <code>8</code> para +77 MiB, y <code>12</code> para +109 MiB. <code>12</code> es el más comúnmente usado que puedes encontrar en muchas aplicaciones homebrew. Sin <code>ATTRIBUTE2</code> establecido, estás limitado al presupuesto estándar de 256 MiB de RAM.</li>
+<li><code>-s TITLE_ID=XXXXYYYYY</code>
+Identificador único de la aplicación. El formato es <code>XXXXYYYYY</code> donde <code>XXXX</code> son letras y <code>YYYYY</code> son dígitos. El sistema operativo en sí no te impide ignorar el requisito de letra/dígito así que podrías hacer algo como <code>SUPERGAME</code>, pero no seguir el formato puede hacer que algunos módulos del sistema raramente usados se nieguen a funcionar.</li>
+</ul>
+<p>Lecturas adicionales:</p>
+<ul>
+<li><a href="https://www.psdevwiki.com/vita/index.php/System_File_Object_(SFO)_(PSF)">«System File Object (SFO) (PSF)» en la PlayStation Developer Wiki</a></li>
+</ul>
+<h3 id="icon0-pic0">icon0, pic0<a class="headerlink" href="#icon0-pic0" title="Permanent link">&para;</a></h3>
+<p><code>icon0.png</code> es una imagen de 128x128 que servirá, como su nombre sugiere, como icono para la burbuja de tu aplicación. Si no proporcionas una, la burbuja aparecería blanca.</p>
+<p><code>pic0.png</code> es una imagen de 960x544 que se muestra después de lanzar la aplicación y antes de que empiece el renderizado propio. Básicamente, una pantalla de bienvenida (splash screen). Si no proporcionas una, la pantalla simplemente aparecería negra durante ese tiempo.</p>
+<blockquote>
+<p>[!WARNING]
+<code>icon0.png</code>, <code>pic0.png</code>, así como cualquier otro recurso de LiveArea<sup><a href="https://manuals.playstation.net/document/gb/psvita/basic/screens.html">¿qué es esto?</a></sup> no pueden ser PNG aleatorios cualesquiera. Deben tener una profundidad de color de 256, de lo contrario la instalación del VPK fallará. La forma más simple (y más suave con la calidad) de convertir un PNG arbitrario al formato correcto es usando <a href="https://pngquant.org/">pngquant</a>.</p>
+</blockquote>
+<h3 id="templatexml">template.xml<a class="headerlink" href="#templatexml" title="Permanent link">&para;</a></h3>
+<p><code>template.xml</code> define el diseño de la pantalla LiveArea de tu aplicación. Hay un montón de opciones de personalización que puedes usar. Recomiendo echar un vistazo a la guía <a href="https://forum.hackinformer.com/viewtopic.php?t=765">How to create a custom LiveArea screen for your Homebrew</a> de Freakler para tener una idea general de lo que es posible, y consultarla cada vez que crees algo nuevo.</p>
+<h3 id="otros-archivos">Otros archivos<a class="headerlink" href="#otros-archivos" title="Permanent link">&para;</a></h3>
+<p>Además de lo mencionado, un VPK puede incluir cualquier archivo que quieras: texturas, sonidos, partes de LiveArea personalizada, otros ejecutables (sí, puedes tener más de un ejecutable en una sola aplicación), y demás.</p>
+<p>Aun así, no recomendaría poner todos tus recursos ahí si son más grandes que una docena o dos de MiB. Es más probable que actualices tu ejecutable más a menudo que los recursos, y tenerlos separados ahorrará a los usuarios el tiempo de volver a descargar y reinstalar un paquete grande cada vez.</p>
+<p>Para datos externos (es decir, no proporcionados dentro del VPK), deberías usar el directorio <code>ux0:/data/[nombre_arbitrario]</code>. Es un estándar de facto dentro de la comunidad. Por ejemplo, <a href="https://vitadb.rinnegatamante.it/#/info/877">VitaDB Downloader</a> desempaquetaría automáticamente tus archivos de datos en <code>ux0:/data/</code>.</p>
+<p>Para añadir archivos o directorios extra a tu VPK, puedes ajustar el comando <code>vita_create_vpk</code> en tu CMakeLists así:</p>
+<div class="language-cmake highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">vita_create_vpk</span><span class="p">(</span><span class="s">MyApplication.vpk</span><span class="w"> </span><span class="o">${</span><span class="nv">VITA_TITLEID</span><span class="o">}</span><span class="w"> </span><span class="s">eboot.bin</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">                </span><span class="s">VERSION</span><span class="w"> </span><span class="o">${</span><span class="nv">VITA_VERSION</span><span class="o">}</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">                </span><span class="s">NAME</span><span class="w"> </span><span class="o">${</span><span class="nv">VITA_APP_NAME</span><span class="o">}</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">                </span><span class="s">FILE</span><span class="w"> </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/livearea/icon0.png</span><span class="w"> </span><span class="s">sce_sys/icon0.png</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">                </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/livearea/pic0.png</span><span class="w"> </span><span class="s">sce_sys/pic0.png</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">                </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/livearea/startup.png</span><span class="w"> </span><span class="s">sce_sys/livearea/contents/startup.png</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">                </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/livearea/bg0.png</span><span class="w"> </span><span class="s">sce_sys/livearea/contents/bg0.png</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">                </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/livearea/template.xml</span><span class="w"> </span><span class="s">sce_sys/livearea/contents/template.xml</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">                </span><span class="o">${</span><span class="nv">CMAKE_SOURCE_DIR</span><span class="o">}</span><span class="s">/assets</span><span class="w"> </span><span class="s">assets</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">                </span><span class="p">)</span>
+</span></code></pre></div>
+<p>Fíjate en que, para directorios, <strong>no</strong> pones una barra final en la ruta.</p>
+<h2 id="notas-finales-y-enlaces-utiles">Notas finales y enlaces útiles<a class="headerlink" href="#notas-finales-y-enlaces-utiles" title="Permanent link">&para;</a></h2>
+<p>He estado escribiendo este post intermitentemente durante dos años (exactamente desde el 2 de mayo de 2022). Todavía siento que podría hacer más aquí, pero honestamente, realmente es hora de publicarlo y que empiece a hacer algún bien ya. ¡Si tienes alguna sugerencia o corrección, déjala aquí en los comentarios!</p>
+<p>¡Si este artículo te fue útil de alguna manera, házmelo saber en los comentarios también!</p>
+<p>¡Buena suerte en tu camino de desarrollo homebrew! Siéntete libre de usar este artículo como chuleta cuando olvides algo (ciertamente yo mismo lo hago :&gt; ). Pide ayuda en uno de los servidores Discord de la comunidad si te atascas, y revisa las páginas de GitHub de otros homebrews —casi todos están bajo licencias de código abierto permisivas, así que para muchas cosas, puedes simplemente tomar código de alguien más.</p>
+<p>Aquí tienes una lista de enlaces útiles; la mayoría ya se mencionan arriba, pero también hay bastantes nuevos:</p>
+<h3 id="toolchains-cc">Toolchains C/C++<a class="headerlink" href="#toolchains-cc" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://vitasdk.org/">Vita SDK</a>
+  La solución de referencia para todo lo relacionado con homebrew de Vita. La mayoría de apps, juegos y ports de la comunidad están hechos con esta toolchain. Fácil de configurar y usar, pero requiere conocimientos de C/C++.</li>
+<li><a href="https://github.com/Vita-Development-Suite/doc">Vita Development Suite</a>
+  Versión extendida y mejorada del SDK oficial de Sony Playstation Vita. Usarlo está en una zona legal gris pero puede ser irreemplazable para algunas situaciones donde el SDK de código abierto carece de funciones.</li>
+</ul>
+<h3 id="librerias_1">Librerías<a class="headerlink" href="#librerias_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/Rinnegatamante/vitaGL">VitaGL</a>
+  Capa de traducción de OpenGL a la API gráfica nativa de PS Vita (sceGxm). Potencia la mayoría de los juegos y ports homebrew que requieren OpenGL.</li>
+<li><a href="https://github.com/GrapheneCt/PVR_PSP2/releases">PVR_PSP2</a>
+  Capa de controlador con soporte OpenGL para PS Vita. Zona legal gris su uso. Una alternativa a VitaGL que puede tener mejor compatibilidad con el estándar en algunos casos.</li>
+<li><a href="https://github.com/xerpi/libvita2d">libvita2d</a>
+  Librería 2D simple acelerada por GPU para PS Vita (viene con tu instalación de Vita SDK por defecto)</li>
+<li><a href="https://github.com/libsdl-org/SDL/blob/main/docs/README-vita.md">SDL1 / SDL2</a>
+  (viene con tu instalación de Vita SDK por defecto)</li>
+<li><a href="https://github.com/Northfear/SDL">SDL2 (fork de Northfear)</a>
+  (úsalo si quieres gestionar el contexto GL de VitaGL desde SDL)</li>
+<li>...Y muchas otras en <a href="https://github.com/vitasdk/packages">vitasdk/packages</a>.</li>
+</ul>
+<h3 id="motores-de-juego">Motores de juego<a class="headerlink" href="#motores-de-juego" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://www.patreon.com/posts/guide-how-to-to-24906451">Unity</a></li>
+<li><a href="https://github.com/SonicMastr/godot-vita/releases">Godot</a></li>
+<li><a href="https://github.com/SonicMastr/renpy-vita">Ren'Py</a></li>
+<li><a href="https://docs.scummvm.org/en/v2.7.0/other_platforms/playstation_vita.html">ScummVM</a></li>
+<li><a href="https://github.com/EasyRPG/Player">RPG Maker 2000 / 2003 / EasyRPG</a></li>
+<li><a href="https://github.com/rsn8887/openbor">OpenBOR</a></li>
+<li><a href="https://gamemaker.io/en">Game Maker</a>
+  Nota: necesitarías exportar el juego para la plataforma Android y usar <a href="https://github.com/Rinnegatamante/yoyoloader_vita">YoYo Loader</a> para llevar tu juego a Vita.</li>
+</ul>
+<h3 id="otros-lenguajes-de-programacion">Otros lenguajes de programación<a class="headerlink" href="#otros-lenguajes-de-programacion" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/Rinnegatamante/lpp-vita/releases">Lua</a>
+  Y no te pierdas <a href="https://github.com/island-games/Color-Avoider/wiki">una gran guía para hacer un juego para Vita en Lua</a>.</li>
+<li><a href="https://github.com/SonicMastr/Python-Player-Vita/releases">Python</a></li>
+<li><a href="https://github.com/GrapheneCt/VitaMonoLoader">C#/Mono</a></li>
+<li><a href="https://github.com/isage/pppp-vita/releases">PHP</a></li>
+<li><a href="https://silica.codes/SilicaAndPina/ruby-vita">Ruby</a></li>
+</ul>
+<h3 id="herramientas-de-depuracion">Herramientas de depuración<a class="headerlink" href="#herramientas-de-depuracion" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://github.com/devnoname120/vitacompanion">Vitacompanion</a>
+  Servidor FTP en segundo plano + ejecución de comandos remotos en tu Vita.</li>
+<li><a href="https://github.com/xyzz/vita-parse-core">vita-parse-core</a>
+  Lector de volcados de núcleo (core dumps) para depurar fallos.</li>
+<li><a href="https://github.com/isage/catlog">Cat-A-Log</a> / <a href="https://forum.devchroma.nl/index.php?topic=80.0">PrincessLog</a>
+  Ver stdout (salida de logging) desde la Vita en tu PC.</li>
+<li><a href="https://github.com/DaveeFTW/kvdb">KVDB</a>.
+  Depurador compatible con GDB para PS Vita. Con bugs.</li>
+</ul>
+<h3 id="otras-cosas-que-pueden-ayudar">Otras cosas que pueden ayudar<a class="headerlink" href="#otras-cosas-que-pueden-ayudar" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://web.archive.org/web/20241206184722/https://vps.gl33ntwine.com/">VPS (Vita Project Suggestions)</a>
+  Un catálogo de ideas para tu próximo proyecto.</li>
+<li><a href="https://forum.hackinformer.com/viewtopic.php?t=765">Guía de LiveArea por Freakler</a>
+  Una guía extensa para personalizar los recursos LiveArea de tu proyecto.</li>
+</ul>
+<h3 id="servidores-discord-utiles">Servidores Discord útiles<a class="headerlink" href="#servidores-discord-utiles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://discord.gg/m7MwpKA">HENkaku</a> (principalmente VitaSDK)</li>
+<li><a href="https://discord.gg/PyCaBx9">Vita Nuova</a> (VitaSDK, ports de Android, YoYo Loader)</li>
+<li><a href="http://discord.cbps.xyz/">CBPS</a> (principalmente VDSuite)</li>
+<li><a href="https://discord.gg/qrUs4a85Aa">Vita Forever</a> (principalmente Unity)</li>
+</ul>
+<hr />
+<h3 id="metadatos-del-post-original">Metadatos del post original<a class="headerlink" href="#metadatos-del-post-original" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Categoría / Tags:</strong> <code>PS Vita</code>, <code>Homebrew</code>, <code>VitaSDK</code></li>
+<li><strong>Licencia:</strong> Publicado bajo la licencia <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>.</li>
+<li><strong>Imágenes:</strong> Preservadas localmente en <code>./../assets/develop-for-vita-assets/</code> y respaldadas en la Wayback Machine.</li>
+<li><strong>Versión en español:</strong> Este archivo (<code>develop-for-vita.es.md</code>) es traducción al español. El original en inglés permanece intacto en <code>./develop-for-vita.md</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/vitasdk" target="_blank" rel="noopener" title="VitaSDK GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/Rinnegatamante/vitaGL" target="_blank" rel="noopener" title="vitaGL by Rinnegatamante" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://github.com/TheOfficialFloW/kubridge" target="_blank" rel="noopener" title="kubridge by TheFloW" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
