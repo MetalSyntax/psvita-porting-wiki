@@ -1,6 +1,22 @@
-# 00. Fundamentals & Architecture
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../00-fundamentals-architecture/" class="lang-switch-link active">🇬🇧 English</a>
+  <a href="../es/00-fundamentos-arquitectura/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="../pt/00-fundamentos-arquitetura/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
 
-To master porting mobile games to the PlayStation Vita, one must understand both the console's physical hardware architecture and the theoretical foundation of the **SoLoader** methodology.
+<div class="chapter-hero">
+  <span class="chapter-badge">Chapter 00 • Core Foundations</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Hardware Architecture & SoLoader Theory</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Comprehensive breakdown of PlayStation Vita's silicon limits (Cortex-A9, SGX543MP4+, CDRAM) and the mathematical rationale behind zero-overhead native ARMv7 execution.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Level: Fundamental</span>
+    <span class="chapter-meta-pill">🧠 Focus: ARMv7-A, SGX543 TBDR, CDRAM vs RAM</span>
+    <span class="chapter-meta-pill">🎮 Verified: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
 
 ---
 
@@ -35,15 +51,50 @@ graph TD
 
 ### 1. The CPU (ARM Cortex-A9 MPCore)
 The PlayStation Vita features an **ARM Cortex-A9** 32-bit quad-core processor (ARMv7-A architecture).
-- **Default Sony Clock:** 333 MHz (underclocked out of the factory to preserve battery).
-- **Maximum Native Clock:** 444 MHz / 500 MHz (safely unlocked via code or plugins like `PSVshell`).
+- **Default Factory Clock:** 333 MHz (underclocked by Sony to preserve battery and thermals).
+- **Maximum Stable Native Clock:** 444 MHz CPU / 222 MHz GPU / 166 MHz Bus (unlocked via VitaSDK power management APIs).
 - **Caches:** 32 KiB L1 instruction + 32 KiB L1 data cache per core; 2 MiB unified shared L2 cache.
 - **Floating Point Unit:** Hardware VFPv3-D32 and 128-bit SIMD NEON engine.
-- **The 4th Core:** Reserved by default for VitaOS system background services. Using GrapheneCt's [CapUnlocker](https://github.com/GrapheneCt/CapUnlocker) kernel plugin, homebrew applications can claim this core by setting affinity mask `0x80000` via `sceKernelChangeThreadCpuAffinityMask()`.
+- **The 4th Core:** Reserved by default for VitaOS background services. Using GrapheneCt's [CapUnlocker](https://github.com/GrapheneCt/CapUnlocker) kernel plugin, homebrew applications can claim this core by setting affinity mask `0x80000` via `sceKernelChangeThreadCpuAffinityMask()`.
+
+=== "C (Power & Clock Overclocking)"
+    ```c
+    #include <vitasdk.h>
+
+    void init_vita_hardware_performance(void) {
+        // Boost CPU, GPU, and Bus to maximum factory capability
+        scePowerSetArmClockFrequency(444);
+        scePowerSetBusClockFrequency(222);
+        scePowerSetGpuClockFrequency(222);
+        scePowerSetGpuXbarClockFrequency(166);
+
+        // Optional: Disable screen dimming during gameplay
+        sceKernelPowerTick(SCE_KERNEL_POWER_TICK_DEFAULT);
+    }
+    ```
+
+=== "C (CapUnlocker 4th Core Affinity)"
+    ```c
+    #include <vitasdk.h>
+
+    // Core affinity bitmasks
+    #define VITA_CORE_0 0x10000
+    #define VITA_CORE_1 0x20000
+    #define VITA_CORE_2 0x40000
+    #define VITA_CORE_3 0x80000 // Requires CapUnlocker plugin installed
+
+    void assign_audio_thread_to_core3(SceUID thread_id) {
+        // Free up Core 0 and Core 1 for the game's main engine and rendering loop
+        sceKernelChangeThreadCpuAffinityMask(thread_id, VITA_CORE_3);
+    }
+    ```
+
+---
 
 ### 2. The GPU (PowerVR SGX543MP4+)
 A 4-core PowerVR Series5XT graphics chip clocked up to 222 MHz, utilizing a **Tile-Based Deferred Rendering (TBDR)** pipeline.
 - The GPU breaks the screen into 16x16 pixel tiles, performing Hidden Surface Removal (HSR / Early-Z) *before* fragment shading occurs, conserving massive amounts of memory bandwidth.
+- Alpha-testing (`discard` in shaders) can cause the GPU to fall back to a slower multi-pass path; optimizing textures and shaders in vitaGL yields major framerate gains.
 
 ### 3. Main Memory vs Video Memory (CDRAM)
 Physically, the Vita has two distinct memory buses and partitions:
@@ -53,6 +104,21 @@ Physically, the Vita has two distinct memory buses and partitions:
 | **Main RAM** | 512 MiB | ~300 MiB to 420 MiB | System RAM accessible by CPU. Houses code, heap, the loaded `.so` binary, decompressed assets, and the FalsoJNI runtime. |
 | **CDRAM (VRAM)** | 128 MiB | **112 MiB** | Ultra-fast VRAM directly tied to the GPU bus. Used for framebuffers, active textures, vertex and index buffers. |
 | **System VRAM** | 16 MiB | 0 MiB | Reserved by VitaOS for LiveArea UI and system overlays. |
+
+=== "C (Memory Budget Telemetry)"
+    ```c
+    #include <vitasdk.h>
+    #include <stdio.h>
+
+    void print_memory_telemetry(void) {
+        SceKernelFreeMemorySize info;
+        info.size = sizeof(SceKernelFreeMemorySize);
+        sceKernelGetFreeMemorySize(&info);
+
+        printf("[MEMORY] Free User RAM: %u MB\n", info.size_user / (1024 * 1024));
+        printf("[MEMORY] Free CDRAM: %u MB\n", info.size_cdram / (1024 * 1024));
+    }
+    ```
 
 ---
 

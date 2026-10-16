@@ -1,8 +1,17 @@
-# Enciclopédia e Guia de Porting para PS Vita (SoLoader)
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../" class="lang-switch-link">🇬🇧 English (Default)</a>
+  <a href="../es/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
 
-Bem-vindo à seção em português da **PS Vita Porting Wiki**. Esta enciclopédia foi estruturada como um manual de engenharia passo a passo e uma base de referência técnica para transformar um binário compilado de Android (`.apk` / `.so`) em um aplicativo nativo executável (`.vpk`) no console **PlayStation Vita**.
-
----
+<div class="chapter-hero">
+  <span class="chapter-badge">Edição em Português</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Enciclopédia e Guia de Porting para PS Vita (SoLoader)</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Manual completo de engenharia passo a passo e base de referência técnica para transformar um binário compilado de Android (<code>.apk</code> / <code>.so</code>) em um aplicativo nativo executável (<code>.vpk</code>) no PlayStation Vita.
+  </p>
+</div>
 
 ## 🧭 Mapa de Navegação do Manual
 

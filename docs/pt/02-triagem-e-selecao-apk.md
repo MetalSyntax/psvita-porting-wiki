@@ -1,4 +1,24 @@
-# 02. Triagem e Seleção de APK
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../02-apk-triage-and-selection/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/02-triaje-y-seleccion-apk/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 02 • Viabilidade & Triagem</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Triagem e Análise de Viabilidade de APK</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Diagnóstico sistemático de compatibilidade de arquitetura ABI (ARMv7 vs 64-bit), pipeline gráfico (GLES 1.1 vs 2.0 vs Vulkan), limites de memória e proporção de código nativo.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Intermediário</span>
+    <span class="chapter-meta-pill">🔍 Foco: Triagem ABI, Detecção GLES, Orçamento de RAM</span>
+    <span class="chapter-meta-pill">🎮 Casos: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Antes de escrever qualquer código ou configurar um projeto CMake, é essencial realizar uma **análise de viabilidade do APK**. Nem todos os jogos Android podem ser portados via SoLoader; avaliar o binário nos primeiros minutos evita semanas de trabalho infrutífero.
 

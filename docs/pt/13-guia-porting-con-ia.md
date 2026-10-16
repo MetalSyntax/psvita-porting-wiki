@@ -1,4 +1,24 @@
-# 13. Guia de Porting com IA
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../13-ai-assisted-porting/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/13-guia-porting-con-ia/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 13 • Pair Programming com IA</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Guia de Porting Assistido com IA</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Melhores práticas para desenvolvimento em conjunto humano + IA, otimização de 90% em tokens de contexto, mitigação de alucinações em assinaturas JNI e templates de prompts determinísticos.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Metodologia</span>
+    <span class="chapter-meta-pill">🤖 Ferramentas: Claude, GPT, Antigravity, Subagentes</span>
+    <span class="chapter-meta-pill">🎯 Foco: Zero Alucinação, Economia de Tokens</span>
+  </div>
+</div>
+
+---
 
 O desenvolvimento de ports via SoLoader combina tarefas repetitivas (criação de stubs JNI, tabelas de símbolos, wrappers de áudio) com raciocínio profundo de baixo nível para depurar falhas em hardware real.
 

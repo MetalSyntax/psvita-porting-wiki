@@ -1,4 +1,24 @@
-# 12. Arqueología de Motores Reales
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../12-engine-archaeology/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/12-arqueologia-de-motores/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 12 • Arqueología de Motores</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Arqueología de Motores Reales y Casos de Estudio</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Patrones de ingeniería inversa, tablas de símbolos y soluciones probadas en combate a lo largo de más de 30 motores móviles (Gameloft, Gamevil, Com2uS, Cocos2d-x).
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Avanzado</span>
+    <span class="chapter-meta-pill">🏛️ Motores: Gameloft, Gamevil Nexus2, Com2uS, Cocos2d-x</span>
+    <span class="chapter-meta-pill">🎮 Casos Reales: 30+ Ports Probados</span>
+  </div>
+</div>
+
+---
 
 A lo largo del desarrollo de más de 30 ports de PlayStation Vita en producción, se han desentrañado las arquitecturas internas de los motores móviles más influyentes. Esta sección documenta los patrones, estructuras y soluciones probadas para cada familia de motor.
 

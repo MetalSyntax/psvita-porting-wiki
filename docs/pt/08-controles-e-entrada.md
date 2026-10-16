@@ -1,4 +1,24 @@
-# 08. Controles e Entrada
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../08-controls-and-input/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/08-controles-e-input/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 08 • Entrada e Controles</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Controles, Entrada de Toque e Mapeamento Físico</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Mapeamento de botões analógicos e digitais do PS Vita (SceCtrlData) para eventos de MotionEvent do Android, emulação de multitoque frontal/traseiro e prevenção de buffer overflow.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Intermediário</span>
+    <span class="chapter-meta-pill">🎮 Controle: SceCtrlData, SceTouchData, Injeção de Toque</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Adaptar os controles de toque de um smartphone para o PlayStation Vita envolve lidar tanto com a tela capacitiva frontal e o painel traseiro quanto com os botões físicos e analógicos.
 

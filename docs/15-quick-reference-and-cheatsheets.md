@@ -1,6 +1,22 @@
-# 15. Quick Reference & Cheat Sheets
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../15-quick-reference-and-cheatsheets/" class="lang-switch-link active">🇬🇧 English</a>
+  <a href="../es/15-referencia-rapida-y-cheatsheets/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="../pt/15-referencia-rapida-e-cheatsheets/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
 
-Fast reference lookup tables for JNI type signatures, common VitaOS kernel errors, and Bionic-to-Newlib translation mappings.
+<div class="chapter-hero">
+  <span class="chapter-badge">Chapter 15 • Reference Tables</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Quick Reference & Cheat Sheets</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    High-density lookup tables for JNI method signatures, VitaOS kernel error codes, Bionic-to-Newlib translation mappings, and essential ARMv7 binary patch hex patterns.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Level: Reference</span>
+    <span class="chapter-meta-pill">📋 Tables: JNI Signatures, VitaOS Hex Errors, ARMv7 Opcodes</span>
+    <span class="chapter-meta-pill">🚀 Ready-to-Copy Cheatsheet</span>
+  </div>
+</div>
 
 ---
 
@@ -34,6 +50,38 @@ Fast reference lookup tables for JNI type signatures, common VitaOS kernel error
 | **`0x800200CB`** | `SCE_KERNEL_ERROR_ILLEGAL_MEMBLOCK_TYPE` | Attempted executable memory allocation without `kubridge`. | Install `kubridge.skprx` in `ur0:tai/config.txt`. |
 | **`0x80020002`** | `SCE_ERROR_ERRNO_ENOENT` | File or directory not found. | Check path sanitization; confirm files reside in `ux0:data/<game>/`. |
 | **`0x800200D9`** | `SCE_KERNEL_ERROR_CAN_NOT_ALLOC` | Kernel memory block descriptor exhaustion. | Use reusable memory pools instead of hundreds of individual `sceKernelAllocMemBlock` calls. |
+
+---
+
+## ⚡ Essential ARMv7 Patch Opcodes Cheatsheet
+
+=== "Thumb-2 (16-bit & 32-bit)"
+    ```assembly
+    # 16-bit NOP
+    nop                     # Hex: 0xBF00
+
+    # Return True (returns 1 in R0, exits function)
+    movs    r0, #1          # Hex: 0x2001
+    bx      lr              # Hex: 0x4770
+
+    # Return False / NULL (returns 0 in R0, exits function)
+    movs    r0, #0          # Hex: 0x2000
+    bx      lr              # Hex: 0x4770
+    ```
+
+=== "ARM Mode (32-bit)"
+    ```assembly
+    # 32-bit NOP
+    nop                     # Hex: 0xE320F000
+
+    # Return True (returns 1 in R0, exits function)
+    mov     r0, #1          # Hex: 0xE3A00001
+    bx      lr              # Hex: 0xE12FFF1E
+
+    # Return False / NULL (returns 0 in R0, exits function)
+    mov     r0, #0          # Hex: 0xE3A00000
+    bx      lr              # Hex: 0xE12FFF1E
+    ```
 
 ---
 

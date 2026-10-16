@@ -1,4 +1,24 @@
-# 08. Controles y Sistema de Entrada
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../08-controls-and-input/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/08-controles-e-entrada/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 08 • Entrada y Controles</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Controles, Entrada Táctil y Mapeo Físico</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Mapeo de botones analógicos y digitales de PS Vita (SceCtrlData) hacia eventos de MotionEvent de Android, emulación de multitouch frontal/trasero y prevención de desbordamiento.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Intermedio</span>
+    <span class="chapter-meta-pill">🎮 Control: SceCtrlData, SceTouchData, Inyección Táctil</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Adaptar el sistema de entrada de un juego táctil de smartphone a la ergonomía de una consola física como la PlayStation Vita requiere gestionar tanto la pantalla multitáctil como los botones físicos y joysticks analógicos.
 

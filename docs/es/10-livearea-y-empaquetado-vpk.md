@@ -1,4 +1,24 @@
-# 10. LiveArea y Empaquetado VPK
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../10-livearea-and-vpk-packaging/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/10-livearea-e-empacotamento-vpk/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 10 • Empaquetado & LiveArea</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">LiveArea y Empaquetado de VPK</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Construcción de paquetes de distribución VPK, configuración de LiveArea (template.xml, icon0.png, bg0.png), resolución del error 0x8010113D y purga de archivos AppleDouble de macOS.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Intermedio</span>
+    <span class="chapter-meta-pill">📦 Formato: Sony SELF, param.sfo, VPK (ZIP)</span>
+    <span class="chapter-meta-pill">🎨 Assets: PNG Indexado de 8-bit, Límites SceShell</span>
+  </div>
+</div>
+
+---
 
 El paquete final distribuible en PlayStation Vita es un archivo con extensión **`.vpk`**. Un VPK es internamente un archivo ZIP estándar que contiene el ejecutable firmado (`eboot.bin`), el archivo de metadatos del sistema (`sce_sys/param.sfo`) y los recursos visuales del menú del sistema (**LiveArea**).
 

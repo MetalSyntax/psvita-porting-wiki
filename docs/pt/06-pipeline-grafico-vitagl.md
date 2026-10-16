@@ -1,4 +1,24 @@
-# 06. Pipeline Gráfico com vitaGL
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../06-vitagl-graphics-pipeline/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/06-pipeline-grafico-vitagl/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 06 • Gráficos vitaGL</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Pipeline Gráfico com vitaGL</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Tradução de chamadas OpenGL ES 1.1 / 2.0 para comandos nativos SCE GXM na GPU PowerVR SGX543, compilação de shaders GLSL para Cg/GXP e gestão de CDRAM.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Avançado</span>
+    <span class="chapter-meta-pill">🎨 Pipeline: OpenGL ES, SCE GXM, Shaders Cg/GXP</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 O PlayStation Vita possui uma GPU PowerVR SGX543MP4+, mas a API proprietária exposta pelo sistema operacional é a **SCE GXM**. Reescrever o renderizador de um jogo Android em GXM puro exigiria meses de trabalho de baixo nível.
 

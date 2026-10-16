@@ -4,18 +4,25 @@ hide:
   - toc
 ---
 
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="./" class="lang-switch-link active">🇬🇧 English (Default)</a>
+  <a href="es/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="pt/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
 <div class="hero-container">
   <div class="hero-title">PS Vita Porting Wiki & Knowledge Base</div>
   <div class="hero-subtitle">
-    Enciclopedia técnica definitiva sobre ports de videojuegos móviles (Android APK mediante <code>.so loader</code>, <code>FalsoJNI</code> y <code>vitaGL</code>) para la consola PlayStation Vita.
+    The definitive technical manual and engineering reference for porting Android mobile games (via <code>.so loader</code>, <code>FalsoJNI</code>, and <code>vitaGL</code>) to the PlayStation Vita handheld console.
   </div>
 
   <div class="badge-row">
-    <span class="feature-pill">⚡ 100% Velocidad Nativa ARMv7</span>
-    <span class="feature-pill">🎮 Aceleración Hardware SCE GXM</span>
-    <span class="feature-pill">🧩 FalsoJNI Runtime Emulation</span>
-    <span class="feature-pill">🔬 Triangulación de Crashes con Hardware Real</span>
-    <span class="feature-pill">🤖 Optimizado para Humanos & IAs</span>
+    <span class="feature-pill">⚡ 100% Native ARMv7 Speed</span>
+    <span class="feature-pill">🎮 Hardware-Accelerated SCE GXM</span>
+    <span class="feature-pill">🧩 FalsoJNI Runtime Dispatch</span>
+    <span class="feature-pill">🔬 Physical Hardware Crash Triage</span>
+    <span class="feature-pill">🤖 Engineered for Humans & AI Agents</span>
   </div>
 
   <div style="margin-top: 1.5rem;">
@@ -26,73 +33,121 @@ hide:
 <div class="stats-banner">
   <div class="stat-box">
     <div class="stat-number">30+</div>
-    <div class="stat-label">Ports Reales Analizados</div>
+    <div class="stat-label">Production Ports Analyzed</div>
   </div>
   <div class="stat-box">
     <div class="stat-number">16</div>
-    <div class="stat-label">Capítulos Técnicos</div>
+    <div class="stat-label">Core Engineering Chapters</div>
   </div>
   <div class="stat-box">
     <div class="stat-number">3</div>
-    <div class="stat-label">Idiomas (ES / EN / PT)</div>
+    <div class="stat-label">Languages Available</div>
   </div>
   <div class="stat-box">
     <div class="stat-number">0%</div>
-    <div class="stat-label">Overhead de Emulación</div>
+    <div class="stat-label">CPU Emulation Overhead</div>
   </div>
 </div>
 
 ---
 
-<h2 style="text-align: center; margin-top: 2rem;">🌐 Selecciona tu Idioma / Select Language / Selecione o Idioma</h2>
+<h2 style="text-align: center; margin-top: 2rem;">🚀 Porting Engineering Roadmap</h2>
 
 <div class="lang-grid">
 
-  <!-- Español Card -->
+  <!-- Core Runtime Card -->
   <div class="lang-card">
     <div>
       <div class="lang-header">
-        <span class="lang-flag">🇪🇸</span>
-        <h3 class="lang-name">Español</h3>
+        <span class="lang-flag">🏗️</span>
+        <h3 class="lang-name">01. Core Architecture</h3>
       </div>
       <p class="lang-desc">
-        Manual completo de ingeniería paso a paso: arquitectura ARM Cortex-A9, relocalizaciones ELF, simulación de JVM con FalsoJNI, shaders en vitaGL, triage de volcados <code>.psp2dmp</code> y casos de estudio reales.
+        Understand why 32-bit ARMv7 Android binaries run natively on the Vita's Cortex-A9 CPU without emulation. Learn ELF userspace mapping, RWX memory allocation via <code>kubridge</code>, and ARM dynamic relocation processing.
       </p>
     </div>
-    <a href="es/" class="lang-btn">
-      Comenzar en Español <span>&rarr;</span>
+    <a href="00-fundamentals-architecture/" class="lang-btn">
+      Explore Architecture <span>&rarr;</span>
     </a>
   </div>
 
-  <!-- English Card -->
+  <!-- JNI & Subsystems Card -->
   <div class="lang-card">
     <div>
       <div class="lang-header">
-        <span class="lang-flag">🇬🇧</span>
-        <h3 class="lang-name">English</h3>
+        <span class="lang-flag">🧩</span>
+        <h3 class="lang-name">02. FalsoJNI & Subsystems</h3>
       </div>
       <p class="lang-desc">
-        Comprehensive low-level porting manual: ARMv7 bare-metal execution, ELF relocation parsing, FalsoJNI runtime dispatch, vitaGL hardware shaders, physical <code>.psp2dmp</code> crash triage, and 30+ engine deep-dives.
+        Simulate the JVM without overhead using FalsoJNI. Wire up Android lifecycle hooks, decode method signatures, and implement active stubs for video/billing callbacks that prevent permanent black screens.
       </p>
     </div>
-    <a href="en/" class="lang-btn">
-      Start in English <span>&rarr;</span>
+    <a href="05-falsojni-and-java-bridge/" class="lang-btn">
+      Explore FalsoJNI <span>&rarr;</span>
     </a>
   </div>
 
-  <!-- Português Card -->
+  <!-- Graphics & Shaders Card -->
   <div class="lang-card">
     <div>
       <div class="lang-header">
-        <span class="lang-flag">🇧🇷 🇵🇹</span>
-        <h3 class="lang-name">Português</h3>
+        <span class="lang-flag">🎨</span>
+        <h3 class="lang-name">03. vitaGL & Shaders</h3>
       </div>
       <p class="lang-desc">
-        Manual completo de engenharia passo a passo: arquitetura da CPU Cortex-A9, carregamento de ELF, emulação JNI, pipeline gráfico no vitaGL, triagem de travamentos com <code>vita-parse-core</code> e dissecção de motores.
+        Translate OpenGL ES 1.1 and 2.0 to hardware SCE GXM command buffers with vitaGL. Transpile GLSL to Cg/GXP binaries, resolve FBO Y-flipping, and fix premultiplied alpha texture borders.
       </p>
     </div>
-    <a href="pt/" class="lang-btn">
-      Iniciar em Português <span>&rarr;</span>
+    <a href="06-vitagl-graphics-pipeline/" class="lang-btn">
+      Explore Graphics <span>&rarr;</span>
+    </a>
+  </div>
+
+  <!-- Crash Triage Card -->
+  <div class="lang-card">
+    <div>
+      <div class="lang-header">
+        <span class="lang-flag">🔬</span>
+        <h3 class="lang-name">04. Hardware Crash Triage</h3>
+      </div>
+      <p class="lang-desc">
+        Master the Triangulation Methodology: parse <code>.psp2dmp</code> crash dumps with <code>vita-parse-core</code>, distinguish PC vs LR call frames, match offsets in Ghidra pseudo-C, and fix ARMv7 unaligned memory traps.
+      </p>
+    </div>
+    <a href="11-crash-triage-and-debugging/" class="lang-btn">
+      Explore Triage <span>&rarr;</span>
+    </a>
+  </div>
+
+  <!-- Real Engine Case Studies Card -->
+  <div class="lang-card">
+    <div>
+      <div class="lang-header">
+        <span class="lang-flag">⚔️</span>
+        <h3 class="lang-name">05. Engine Archaeology</h3>
+      </div>
+      <p class="lang-desc">
+        Battle-tested case studies from 30+ production ports: Gameloft proprietary engines (Hero of Sparta, DH2), Gamevil Nexus2/Clet (Zenonia 2/3), Com2uS (Inotia 2/3), and Cocos2d-x (Badland 2).
+      </p>
+    </div>
+    <a href="12-engine-archaeology/" class="lang-btn">
+      Explore Case Studies <span>&rarr;</span>
+    </a>
+  </div>
+
+  <!-- AI-Assisted Porting Card -->
+  <div class="lang-card">
+    <div>
+      <div class="lang-header">
+        <span class="lang-flag">🤖</span>
+        <h3 class="lang-name">06. AI Pair Programming</h3>
+      </div>
+      <p class="lang-desc">
+        Protocols for collaborating with AI coding agents: token economy strategies, filtering 50MB decompilation files, deterministic prompt templates for JNI stubs, and hallucination prevention.
+      </p>
+    </div>
+    <a href="13-ai-assisted-porting/" class="lang-btn">
+      Explore AI Guide <span>&rarr;</span>
     </a>
   </div>
 
@@ -100,14 +155,14 @@ hide:
 
 ---
 
-## ⚡ Ecosistema y Repositorios Oficiales
+## ⚡ Official Ecosystem Repositories
 
-| Herramienta / Proyecto | Repositorio Oficial | Rol en el Porting / Função no Porting |
+| Project / Tool | Official Repository | Role in Mobile Porting |
 | :--- | :--- | :--- |
-| **VitaSDK** | [github.com/vitasdk](https://github.com/vitasdk) | Toolchain oficial de compilación cruzada GCC (`arm-vita-eabi-gcc`). |
-| **vitaGL** | [github.com/Rinnegatamante/vitaGL](https://github.com/Rinnegatamante/vitaGL) | Wrapper acelerado por hardware OpenGL ES 1.1 / 2.0 sobre SCE GXM. |
-| **kubridge** | [github.com/TheOfficialFloW/kubridge](https://github.com/TheOfficialFloW/kubridge) | Plugin de kernel para asignar memoria ejecutable (`USER_RWX`) en espacio de usuario. |
-| **fd_fix** | [github.com/TheOfficialFloW/fd_fix](https://github.com/TheOfficialFloW/fd_fix) | Corrige el cierre indebido de descriptores de archivos I/O en VitaOS. |
-| **FalsoJNI** | [github.com/Rinnegatamante/FalsoJNI](https://github.com/Rinnegatamante/FalsoJNI) | Entorno simulado ligero para satisfacer el JNI de Android sin una JVM pesada. |
-| **soloader-boilerplate** | [github.com/Rinnegatamante/soloader-boilerplate](https://github.com/Rinnegatamante/soloader-boilerplate) | Plantilla base de arquitectura para carga de librerías `.so` dinámicas. |
-| **psvita-toolkit** | [github.com/metalsyntax/psvita-toolkit](https://github.com/metalsyntax/psvita-toolkit) | CLI automatizado para compilación, despliegue FTP, triage de crashes y shaders. |
+| **VitaSDK** | [github.com/vitasdk](https://github.com/vitasdk) | Official GCC-based cross-compilation toolchain (`arm-vita-eabi-gcc`). |
+| **vitaGL** | [github.com/Rinnegatamante/vitaGL](https://github.com/Rinnegatamante/vitaGL) | Hardware-accelerated OpenGL ES 1.1 / 2.0 translation layer over SCE GXM. |
+| **kubridge** | [github.com/TheOfficialFloW/kubridge](https://github.com/TheOfficialFloW/kubridge) | Kernel bridge plugin enabling userspace `USER_RWX` executable memory allocation. |
+| **fd_fix** | [github.com/TheOfficialFloW/fd_fix](https://github.com/TheOfficialFloW/fd_fix) | Fixes kernel I/O file descriptor closing crashes in VitaOS. |
+| **FalsoJNI** | [github.com/Rinnegatamante/FalsoJNI](https://github.com/Rinnegatamante/FalsoJNI) | Lightweight simulated JNIEnv runtime satisfying Android JNI queries in C. |
+| **soloader-boilerplate** | [github.com/Rinnegatamante/soloader-boilerplate](https://github.com/Rinnegatamante/soloader-boilerplate) | Architectural reference template for dynamic `.so` userspace loading. |
+| **psvita-toolkit** | [github.com/metalsyntax/psvita-toolkit](https://github.com/metalsyntax/psvita-toolkit) | All-in-one automation CLI for building, FTP deployment, `.psp2dmp` triage, and shaders. |

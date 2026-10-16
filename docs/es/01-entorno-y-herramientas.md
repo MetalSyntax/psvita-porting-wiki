@@ -1,4 +1,24 @@
-# 01. Entorno y Herramientas
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../01-environment-and-tools/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/01-ambiente-e-ferramentas/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 01 • Entorno & Toolchains</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Entorno de Desarrollo y Herramientas</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Configuración de la toolchain cruzada VitaSDK, librerías vdpm (vitaGL, mathneon), suites de ingeniería inversa (jadx, Ghidra Docker) y plugins de kernel (kubridge, fd_fix).
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Fundamental</span>
+    <span class="chapter-meta-pill">🛠️ Herramientas: VitaSDK, CMake, vdpm, jadx, Ghidra</span>
+    <span class="chapter-meta-pill">🔌 Kernel: kubridge.skprx, fd_fix.skprx</span>
+  </div>
+</div>
+
+---
 
 Para desarrollar y depurar un port de Android para PS Vita se necesita una cadena de compilación cruzada en el sistema anfitrión (Linux, macOS o WSL en Windows) y un conjunto de herramientas de ingeniería inversa y plugins en la consola física.
 

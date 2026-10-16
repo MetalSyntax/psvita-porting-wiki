@@ -1,4 +1,24 @@
-# 15. Referencia Rápida y Cheat Sheets
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../15-quick-reference-and-cheatsheets/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/15-referencia-rapida-e-cheatsheets/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 15 • Tablas de Referencia</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Referencia Rápida y Cheat Sheets</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Tablas de consulta ultrarrápida para firmas de tipos JNI, códigos hexadecimales de error del kernel de VitaOS, equivalencias Bionic a Newlib y opcodes de parches ARMv7.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Referencia</span>
+    <span class="chapter-meta-pill">📋 Tablas: Firmas JNI, Errores VitaOS, Opcodes ARMv7</span>
+    <span class="chapter-meta-pill">🚀 Cheat Sheet Listo para Copiar</span>
+  </div>
+</div>
+
+---
 
 Esta sección compila tablas de consulta rápida para firmas JNI, códigos de error habituales de PlayStation Vita y equivalencias de llamadas del sistema de Android Bionic libc hacia VitaSDK.
 

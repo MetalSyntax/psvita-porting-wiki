@@ -1,4 +1,24 @@
-# 05. FalsoJNI & Ponte Java
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../05-falsojni-and-java-bridge/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/05-falsojni-y-puente-java/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 05 • Ponte Java</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">FalsoJNI e Ponte de Emulação Java</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Implementação do ambiente de execução FalsoJNI em C para simular Dalvik VM, resolver assinaturas JNI complexas e responder a chamadas do sistema Android sem Java VM.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Avançado</span>
+    <span class="chapter-meta-pill">☕ Emulação: JNIEnv, JavaVM, Classes Android</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 No Android, jogos em C/C++ dependem constantemente da máquina virtual Java através do **JNI (Java Native Interface)** para consultar configurações de sistema, tocar vídeos, reproduzir sons e gerenciar arquivos.
 

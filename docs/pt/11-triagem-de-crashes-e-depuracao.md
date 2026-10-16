@@ -1,4 +1,24 @@
-# 11. Triagem de Crashes & Depuração
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../11-crash-triage-and-debugging/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/11-triage-de-crashes-y-debugging/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 11 • Depuração de Hardware</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Triagem de Crashes e Depuração no Hardware</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Metodologia científica de triangulação de crashes usando .psp2dmp, registradores ARMv7 (PC vs LR, R0-R3), desmonte com objdump e armadilhas de alinhamento de memória.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Avançado</span>
+    <span class="chapter-meta-pill">🔍 Depuração: .psp2dmp, vita-parse-core, addr2line</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Quando um port falha no hardware físico, não é preciso adivinhar. A **Metodologia de Triangulação** cruza três fontes de verdade para encontrar a linha exata de código responsável pelo erro:
 1. O arquivo de log com flush imediato (`fflush`).

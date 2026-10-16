@@ -1,4 +1,24 @@
-# 09. Sistema de Arquivos & Assets
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../09-file-system-and-assets/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/09-sistema-de-archivos-y-assets/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 09 • Armazenamento & Arquivos</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Sistema de Arquivos e Gestão de Assets</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Redirecionamento de caminhos Linux ext4 (/sdcard/, /data/data/) para partições do PS Vita (ux0:, app0:), sanitização transparente de I/O e mitigação de cluster slack FAT32.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Intermediário</span>
+    <span class="chapter-meta-pill">📁 Partições: ux0: (Leitura/Escrita), app0: (Apenas Leitura)</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 A topologia de armazenamento e as partições do PlayStation Vita diferem substancialmente do ambiente Android Linux. O redirecionamento de caminhos e o correto empacotamento dos arquivos de dados garantem que o jogo encontre seus modelos, texturas e arquivos de progresso (*saves*).
 

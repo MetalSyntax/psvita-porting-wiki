@@ -1,4 +1,24 @@
-# 15. Referência Rápida & Cheat Sheets
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../15-quick-reference-and-cheatsheets/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/15-referencia-rapida-y-cheatsheets/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 15 • Tabelas de Referência</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Referência Rápida e Cheat Sheets</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Tabelas de consulta ultrarrápida para assinaturas de tipos JNI, códigos hexadecimais de erro do kernel do VitaOS, equivalências Bionic para Newlib e opcodes de patches ARMv7.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Referência</span>
+    <span class="chapter-meta-pill">📋 Tabelas: Assinaturas JNI, Erros VitaOS, Opcodes ARMv7</span>
+    <span class="chapter-meta-pill">🚀 Cheat Sheet Pronto para Copiar</span>
+  </div>
+</div>
+
+---
 
 Tabelas de consulta rápida para assinaturas JNI, códigos de erro do VitaOS e conversão de chamadas da Bionic libc para o VitaSDK.
 

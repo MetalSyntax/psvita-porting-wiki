@@ -1,4 +1,24 @@
-# 03. Análisis Estático e Ingeniería Inversa
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../03-static-analysis-and-reverse-engineering/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/03-analise-estatica-e-engenharia-reversa/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 03 • Ingeniería Inversa</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Análisis Estático e Ingeniería Inversa</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Disección de bytecode Dalvik con jadx, extracción de pseudo-C con Ghidra headless, auditoría de símbolos y desensamblado Thumb-2 para descubrir puntos de entrada.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Intermedio</span>
+    <span class="chapter-meta-pill">🔬 Pipeline: jadx, Docker Ghidra, objdump -M force-thumb</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 El análisis estático es el proceso de examinar la estructura interna del APK, sus clases Java y sus binarios `.so` sin ejecutarlos, con el objetivo de descubrir el ciclo de vida del juego, sus llamadas nativas y sus puntos de entrada.
 

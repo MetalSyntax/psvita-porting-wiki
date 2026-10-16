@@ -1,4 +1,24 @@
-# 03. Análise Estática & Engenharia Reversa
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../03-static-analysis-and-reverse-engineering/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="../../es/03-analisis-estatico-e-ingenieria-inversa/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="./" class="lang-switch-link active">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 03 • Engenharia Reversa</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Análise Estática e Engenharia Reversa</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Dissecação de bytecode Dalvik com jadx, extração de pseudo-C com Ghidra headless, auditoria de símbolos e desmonte Thumb-2 para descobrir pontos de entrada.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nível: Intermediário</span>
+    <span class="chapter-meta-pill">🔬 Pipeline: jadx, Docker Ghidra, objdump -M force-thumb</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 A análise estática consiste em examinar o código Java e os binários nativos `.so` do jogo sem executá-los, mapeando o ciclo de vida, chamadas JNI e estruturas internas de dados.
 

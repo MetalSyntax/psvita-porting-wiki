@@ -1,13 +1,25 @@
-# Getting Started with PSVita Homebrew Development
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../14-base-guide-gl33ntwine/" class="lang-switch-link active">🇬🇧 English</a>
+  <a href="../es/14-guia-base-gl33ntwine/" class="lang-switch-link">🇪🇸 Español</a>
+  <a href="../pt/14-guia-base-gl33ntwine/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
 
-> **Autor:** [gl33ntwine (Vitaliy Atamanenko)](https://twitter.com/gl33ntwine)  
-> **Fecha de publicación original:** 2 de Mayo de 2022  
-> **Tiempo de lectura:** ~38 min (6,918 palabras)  
-> **URL original (sitio inactivo):** `https://gl33ntwine.com/posts/develop-for-vita/`  
-> **Captura archivada en Wayback Machine:** [Web Archive (2024-12-06)](https://web.archive.org/web/20241206184722/https://gl33ntwine.com/posts/develop-for-vita/)  
-> **Licencia:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+<div class="chapter-hero">
+  <span class="chapter-badge">Chapter 14 • Heritage Guide</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Getting Started with PSVita Homebrew Development</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    The foundational guide by gl33ntwine (Vitaliy Atamanenko), preserved and integrated into this wiki under CC BY 4.0. Covering hardware internals, VitaSDK setup, CMake, and the Vita homebrew ecosystem.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">✍️ Author: gl33ntwine</span>
+    <span class="chapter-meta-pill">📜 License: CC BY 4.0</span>
+    <span class="chapter-meta-pill">🏛️ Preserved from Wayback Machine</span>
+  </div>
+</div>
 
 ---
+
 
 Hi there! If you landed here, I probably don’t need to tell you about how amazing the PlayStation Vita is and how sad it is that Sony failed its marketing and threw it away so quickly. Nevertheless, I feel obliged to say that the Vita is also very curious from a developer’s perspective.
 

@@ -1,4 +1,24 @@
-# 11. Triage de Crashes y Hardware Debugging
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../11-crash-triage-and-debugging/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/11-triagem-de-crashes-e-depuracao/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 11 • Depuración de Hardware</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Triage de Crashes y Depuración en Hardware</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Metodología científica de triangulación de crashes usando .psp2dmp, registros ARMv7 (PC vs LR, R0-R3), desensamblado con objdump y trampas de alineación de memoria.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Avanzado</span>
+    <span class="chapter-meta-pill">🔍 Depuración: .psp2dmp, vita-parse-core, addr2line</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Cuando un port crashea en la consola física, no es necesario adivinar ni recurrir a pruebas a ciegas. La **Metodología de Triangulación** cruza tres fuentes exactas de verdad para llegar a la línea de código nativo causante del fallo:
 1. El archivo de log con vaciado forzado (`fflush`).

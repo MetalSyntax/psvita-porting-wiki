@@ -1,4 +1,24 @@
-# 04. Arquitectura SoLoader y Relocalizaciones
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../04-soloader-architecture-and-relocations/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/04-arquitetura-soloader-e-realocacoes/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 04 • Runtime Central</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Arquitectura SoLoader y Relocalizaciones</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Mecánica de bajo nivel para cargar binarios ELF32 en memoria ejecutable de PS Vita, parseo de cabeceras de programa, resolución de relocalizaciones ARM y hooking dinámico.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Avanzado</span>
+    <span class="chapter-meta-pill">🧠 Enfoque: ELF32, Relocalizaciones ARMv7, Páginas RWX</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 El núcleo de todo port de Android para PlayStation Vita reside en el cargador dinámico de binarios ELF (`so_util.c` o `dynlib.c`). Este componente emula en espacio de usuario la labor que realiza el cargador dinámico de Linux (`/system/bin/linker` en Android).
 

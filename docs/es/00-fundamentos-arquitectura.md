@@ -1,4 +1,24 @@
-# 00. Fundamentos y Arquitectura
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../00-fundamentals-architecture/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/00-fundamentos-arquitetura/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 00 • Fundamentos del Hardware</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Fundamentos y Arquitectura de Hardware</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Análisis exhaustivo del hardware de PlayStation Vita (Cortex-A9, SGX543MP4+, particiones CDRAM y RAM) y los fundamentos de la ejecución nativa ARMv7.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Fundamental</span>
+    <span class="chapter-meta-pill">🧠 Enfoque: ARMv7-A, SGX543 TBDR, CDRAM vs RAM</span>
+    <span class="chapter-meta-pill">🎮 Casos Reales: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 Para dominar el porting de juegos móviles hacia la PlayStation Vita, es imperativo comprender la arquitectura de hardware de la consola y la base teórica del método **SoLoader**.
 

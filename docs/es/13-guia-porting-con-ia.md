@@ -1,4 +1,24 @@
-# 13. Guía de Porting Asistido con IA
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../13-ai-assisted-porting/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/13-guia-porting-con-ia/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 13 • Pair Programming con IA</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Guía de Porting Asistido con IA</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Mejores prácticas para desarrollo en pareja humano + IA, optimización del 90% en tokens de contexto, mitigación de alucinaciones en firmas JNI y plantillas de prompts deterministas.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Metodología</span>
+    <span class="chapter-meta-pill">🤖 Herramientas: Claude, GPT, Antigravity, Subagentes</span>
+    <span class="chapter-meta-pill">🎯 Enfoque: Cero Alucinación, Economía de Tokens</span>
+  </div>
+</div>
+
+---
 
 El desarrollo de ports para PlayStation Vita mediante SoLoader requiere una cantidad significativa de código repetitivo (stubs JNI, tablas de resolución de símbolos, wrappers de audio) y razonamiento profundo de bajo nivel para depurar fallos en hardware real.
 

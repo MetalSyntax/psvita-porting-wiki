@@ -1,4 +1,24 @@
-# Primeros pasos con el desarrollo de homebrew para PSVita
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../14-base-guide-gl33ntwine/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/14-guia-base-gl33ntwine/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 14 • Guía Histórica</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Guía Base de gl33ntwine (Vitaliy Atamanenko)</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    La guía fundamental de gl33ntwine preservada bajo licencia CC BY 4.0, cubriendo la arquitectura de la consola, configuración de VitaSDK, CMake y el ecosistema homebrew.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">✍️ Autor: gl33ntwine</span>
+    <span class="chapter-meta-pill">📜 Licencia: CC BY 4.0</span>
+    <span class="chapter-meta-pill">🏛️ Preservada de Wayback Machine</span>
+  </div>
+</div>
+
+---
 
 > **Autor:** [gl33ntwine (Vitaliy Atamanenko)](https://twitter.com/gl33ntwine)  
 > **Fecha de publicación original:** 2 de Mayo de 2022  

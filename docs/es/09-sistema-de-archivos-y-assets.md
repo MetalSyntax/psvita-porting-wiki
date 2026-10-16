@@ -1,4 +1,24 @@
-# 09. Sistema de Archivos y Assets
+<div class="lang-switch-bar">
+  <span>🌐 Language / Idioma:</span>
+  <a href="../../09-file-system-and-assets/" class="lang-switch-link">🇬🇧 English</a>
+  <a href="./" class="lang-switch-link active">🇪🇸 Español</a>
+  <a href="../../pt/09-sistema-de-arquivos-e-assets/" class="lang-switch-link">🇧🇷 Português</a>
+</div>
+
+<div class="chapter-hero">
+  <span class="chapter-badge">Capítulo 09 • Almacenamiento & Archivos</span>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Sistema de Archivos y Gestión de Assets</h1>
+  <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
+    Redirección de rutas Linux ext4 (/sdcard/, /data/data/) hacia particiones de PS Vita (ux0:, app0:), sanitización transparente de I/O y mitigación de cluster slack FAT32.
+  </p>
+  <div class="chapter-meta">
+    <span class="chapter-meta-pill">⚡ Nivel: Intermedio</span>
+    <span class="chapter-meta-pill">📁 Particiones: ux0: (Lectura/Escritura), app0: (Solo Lectura)</span>
+    <span class="chapter-meta-pill">🎮 Verificado: Hero of Sparta, Zenonia 3, Badland 2</span>
+  </div>
+</div>
+
+---
 
 El subsistema de almacenamiento de PlayStation Vita y sus esquemas de partición difieren drásticamente del entorno Linux/Android. Comprender cómo redirigir rutas y gestionar los paquetes de datos (.apk/.obb) es indispensable para que el juego encuentre sus texturas, modelos y archivos de guardado.
 
