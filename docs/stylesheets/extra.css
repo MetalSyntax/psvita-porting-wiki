@@ -15,7 +15,8 @@
   --md-default-bg-color--lightest: #383c4a;
   
   --md-primary-fg-color: #121418;
-  --md-primary-bg-color: #121418;
+  --md-primary-bg-color: #ffffff;
+  --md-primary-bg-color--light: rgba(255, 255, 255, 0.75);
   
   --md-footer-bg-color: #121418;
   --md-footer-bg-color--dark: #0c0e10;
@@ -37,11 +38,56 @@
   --wiki-example-bg: rgba(248, 250, 252, 0.95);
 }
 
-/* Header Styling: Match footer #121418 */
+/* Header Styling: Match footer #121418 with Crisp White Text & Icons */
 .md-header {
   background-color: #121418 !important;
+  color: #ffffff !important;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.md-header__title,
+.md-header__topic,
+.md-header__button,
+.md-header .md-icon,
+.md-header a,
+.md-header .md-header__option {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+.md-header__button:hover {
+  opacity: 0.85;
+}
+
+/* Search bar inside header */
+.md-search__inner {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.md-search__input {
+  color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+  opacity: 1 !important;
+}
+
+.md-search__icon {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Language selector dropdown */
+.md-header .md-select__inner {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 6px !important;
 }
 
 /* Eradicate any auto-generated heading before hero or #overview */
