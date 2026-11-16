@@ -124,42 +124,42 @@ Both the PlayStation Vita and 2010–2016 era Android smartphones share the **ex
 
 When a game is built for Android using the Android NDK in C++, the compiler outputs an ELF shared library: `libgame.so`. That binary contains **raw, bare-metal ARM machine instructions**.
 
-| Platform | CPU ISA | Binary Format | Calling Convention |
-|---|---|---|---|
-| **Android 32-bit** | ARMv7-A (Cortex-A8/A9/A15) | ELF32 (`.so`) | AAPCS (ARM Architecture Procedure Call Standard) |
-| **PlayStation Vita** | ARMv7-A (Cortex-A9 MPCore) | ELF32 / Sony SELF (`eboot.bin`) | AAPCS (with softfp / hardfp ABI matching) |
+| Platform | CPU ISA | Binary Format | Calling Convention | OS / Runtime Layer |
+|---|---|---|---|---|
+| **Android 32-bit** | ARMv7-A (Cortex-A8/A9/A15) | ELF32 (`.so`) | AAPCS standard | Bionic Libc + Java VM (JNI) |
+| **Apple iOS 32-bit** | ARMv7-A (Cortex-A8/A9) | Mach-O 32-bit (`MH_EXECUTE`) | Darwin ARM ABI (r9 scratch, stack 4B) | Darwin Libc + Objective-C Runtime |
+| **PlayStation Vita** | ARMv7-A (Cortex-A9 MPCore) | ELF32 / Sony SELF (`eboot.bin`) | AAPCS (SoftFP / HardFP) | VitaOS Microkernel + Newlib Libc |
 
-Because the PlayStation Vita CPU inherently understands the ARM opcodes in the Android `.so`, **the Vita executes the game's code directly on bare-metal silicon with ZERO CPU emulation overhead.**
+Because the PlayStation Vita CPU inherently understands the ARM opcodes in both Android and iOS binaries, **the Vita executes the game's code directly on bare-metal silicon with ZERO CPU emulation overhead.**
 
 ```mermaid
 sequenceDiagram
-    participant APK as Android APK (libgame.so)
+    autonumber
+    participant App as Mobile Binary (ELF or Mach-O)
     participant Loader as Vita Loader (eboot.bin)
-    participant FalsoJNI as FalsoJNI Bridge
+    participant Bridge as Bridge (FalsoJNI / Mini-ObjC)
     participant VitaGL as vitaGL (OpenGL ES)
     participant VitaOS as Vita OS / Hardware
 
-    Loader->>Loader: Reads ELF, allocates RWX block with sceKernelAllocMemBlock
-    Loader->>Loader: Processes relocations (R_ARM_RELATIVE, R_ARM_GLOB_DAT)
-    Loader->>Loader: Links imported symbols to Loader functions
-    Loader->>FalsoJNI: Initializes simulated JVM & JNIEnv
-    Loader->>APK: Invokes JNI_OnLoad / nativeInit
-    APK->>FalsoJNI: Calls Android Java API (CallStaticVoidMethod)
-    FalsoJNI-->>APK: Returns valid simulated response (safe active stub)
-    APK->>VitaGL: Draws geometry (glDrawElements)
+    Loader->>Loader: Allocates RWX memory via kubridge (sceKernelAllocMemBlock)
+    Loader->>Loader: Applies relocations (R_ARM_RELATIVE or rebase.bin)
+    Loader->>Loader: Binds imported symbols to native Vita functions
+    Loader->>Bridge: Initializes simulated environment (JNIEnv or objc_msgSend dispatcher)
+    Loader->>App: Invokes entry point (JNI_OnLoad or main)
+    App->>Bridge: Calls platform services (Java API or Cocoa selectors)
+    Bridge-->>App: Returns valid simulated response (safe active stub)
+    App->>VitaGL: Draws geometry (glDrawElements / glDrawArrays)
     VitaGL->>VitaOS: Issues native SCE GXM hardware commands
 ```
 
-### The Loader as the Guest Operating System
-If instructions are natively compatible, why can't we run the `.so` directly?
-Because the `.so` expects an **Android/Linux runtime environment**:
-1. It expects Android's standard C library (**Bionic libc**), with Linux syscalls like `open()`, `mmap()`, `pthread_create()`.
-2. It expects Android's display surface (**EGL / SurfaceView / OpenGL ES**).
-3. It expects audio via **OpenSL ES**, **AudioTrack**, or **SoundPool**.
-4. It expects a living Java Virtual Machine (**Dalvik / ART**) responding to **JNI** calls.
+### The Dual Guest Ecosystems: Android & iOS
+If instructions are natively compatible, why can't we run the binary directly?
+Because the compiled code expects its original operating system environment:
+1. **The Android Environment (ELF):** Expects Android's standard C library (**Bionic libc**), **EGL** surface graphics, audio via **OpenSL ES** or **AudioTrack**, and the **Dalvik/ART** virtual machine for **JNI** calls. Handled by the ELF loader and **FalsoJNI**.
+2. **The iOS Environment (Mach-O):** Expects **Darwin libc**, graphics via **EAGLContext / CAEAGLLayer**, audio via **CoreAudio / AudioQueue**, and system service invocation through the **`objc_msgSend`** dynamic messaging dispatcher. Handled by the Mach-O loader and the pure C **Mini-Runtime Objective-C**.
 
-The **SoLoader** (compiled into your Vita `eboot.bin`) provides that bridge:
-- It maps the ELF code and data segments into Vita memory.
-- It adjusts all absolute pointers using the ARM relocation table.
-- It intercepts imported functions (`malloc`, `memcpy`, `glDrawArrays`) and routes them to VitaSDK and vitaGL.
-- It supplies **FalsoJNI**, a lightweight C runtime that answers all Java queries (device model, storage paths, keyboard inputs, audio state) without running an actual Java VM.
+The **Vita Loader** (compiled into your `eboot.bin`) fulfills this role:
+- Maps code and data segments into Vita memory.
+- Adjusts all absolute memory pointers (`.rel.dyn` in ELF or `rebase.bin` in Mach-O).
+- Intercepts imported functions (`malloc`, `memcpy`, `glDrawArrays`) and routes them to VitaSDK and vitaGL.
+- Supplies the simulated platform layer, answering queries for storage paths, controllers, and audio without needing full OS emulation.

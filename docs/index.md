@@ -29,7 +29,7 @@ hide:
     <div class="stat-label">Production Ports Analyzed</div>
   </div>
   <div class="stat-box">
-    <div class="stat-number">16</div>
+    <div class="stat-number">19</div>
     <div class="stat-label">Core Engineering Chapters</div>
   </div>
   <div class="stat-box">
@@ -144,6 +144,38 @@ hide:
     </a>
   </div>
 
+  <!-- iOS & Mach-O Card -->
+  <div class="lang-card">
+    <div>
+      <div class="lang-header">
+        <span class="lang-flag">🍎</span>
+        <h3 class="lang-name">07. iOS & Mach-O Loader</h3>
+      </div>
+      <p class="lang-desc">
+        Load 32-bit ARMv7 Mach-O executables directly into Vita memory. Master static dyld rebasing, Darwin ABI mitigations (-ffixed-r9 and stack alignment), mini-ObjC runtimes, and CgBI PNG decompressors.
+      </p>
+    </div>
+    <a href="16-ios-porting-and-macho-loader/" class="lang-btn">
+      Explore iOS Loader <span>&rarr;</span>
+    </a>
+  </div>
+
+  <!-- Advanced Techniques Card -->
+  <div class="lang-card">
+    <div>
+      <div class="lang-header">
+        <span class="lang-flag">⚡</span>
+        <h3 class="lang-name">08. Video, 60 FPS & Mods</h3>
+      </div>
+      <p class="lang-desc">
+        Production-grade enhancements: multi-threaded FFmpeg video playback (bypassing SceAvPlayer codec limitations), game translation with FreeType, 60 FPS unlocking with physics decoupling, and patch_hide_quad.
+      </p>
+    </div>
+    <a href="18-advanced-techniques-and-enhancements/" class="lang-btn">
+      Explore Advanced Mods <span>&rarr;</span>
+    </a>
+  </div>
+
 </div>
 
 ---
@@ -158,4 +190,5 @@ hide:
 | **fd_fix** | [github.com/TheOfficialFloW/fd_fix](https://github.com/TheOfficialFloW/fd_fix) | Fixes kernel I/O file descriptor closing crashes in VitaOS. |
 | **FalsoJNI** | [github.com/Rinnegatamante/FalsoJNI](https://github.com/Rinnegatamante/FalsoJNI) | Lightweight simulated JNIEnv runtime satisfying Android JNI queries in C. |
 | **soloader-boilerplate** | [github.com/Rinnegatamante/soloader-boilerplate](https://github.com/Rinnegatamante/soloader-boilerplate) | Architectural reference template for dynamic `.so` userspace loading. |
+| **ios-loader-boilerplate** | [github.com/MetalSyntax/ios-loader-boilerplate](https://github.com/MetalSyntax/ios-loader-boilerplate) | Complete scaffolding framework for 32-bit Mach-O iOS game porting to Vita. |
 | **psvita-toolkit** | [github.com/metalsyntax/psvita-toolkit](https://github.com/metalsyntax/psvita-toolkit) | All-in-one automation CLI for building, FTP deployment, `.psp2dmp` triage, and shaders. |

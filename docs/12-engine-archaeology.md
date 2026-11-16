@@ -152,3 +152,58 @@ graph LR
         }
     }
     ```
+
+---
+
+## 🍎 Family 5: Classic Native iOS Engines (Mach-O)
+
+**Representative titles:** *Prince of Persia: Warrior Within*, *Rayman 2: The Great Escape*, *Zenonia 5 iOS*, *PES 2011/2012 iOS*, *The Sims 3 iOS*.
+
+Unlike Android ports, these games compiled directly into monolithic 32-bit `MH_EXECUTE` Mach-O binaries for ARMv7, completely free from Java VMs or JNI reflection layers.
+
+```mermaid
+graph TD
+    subgraph "iOS Mach-O Engine Architecture on Vita"
+        MachO["Mach-O Executable (Decrypted cryptid 0)"]
+        Slide["Memory Sliding (MACHO_SLIDE = 0x98000000)"]
+        Rebase["rebase.bin (Precalculated __DATA Rebasing)"]
+        
+        MachO --> Slide --> Rebase
+        
+        subgraph "Replaced Subsystems"
+            CoreAudio["CoreAudio / AudioQueue -> sceAudioOut"]
+            ObjC["Mini-Runtime ObjC -> Fast Selector Dispatch"]
+            CgBI["CgBI Decoder -> Raw DEFLATE + BGRA swap"]
+            GLES["EAGLContext -> vitaGL (SOFTFP_ABI=1)"]
+        end
+        
+        Rebase --> CoreAudio
+        Rebase --> ObjC
+        Rebase --> CgBI
+        Rebase --> GLES
+    end
+```
+
+### Production Case Studies:
+
+#### 1. *Prince of Persia: Warrior Within* (Ubisoft / Gameloft)
+- **Dual Video Pipeline:** Cinematic cutscenes were `.mp4` containers encoded in MPEG-4 Part 2 (`mp4v`). Hardware `SceAvPlayer` fails to decode MPEG-4 Part 2 (terminating silently after 1.6 seconds). The port utilizes a lightweight ISO-BMFF (MP4) box parser in pure C to parse `moov/trak/mdia/stbl` atoms directly via `sceIoOpen`/`sceIoRead`, streaming elementary packets to `libavcodec` on dedicated worker threads with NEON YUV420P->RGB565 conversion. H.264 cutscenes utilize hardware `SceAvcdec`.
+- **Audio Clock Pacing:** Decoded AAC audio blocks fed to `sceAudioOutOutput()` dictate the master clock for video presentation, completely eliminating audio/video drift.
+
+#### 2. *Rayman 2: The Great Escape* (Gameloft)
+- **Runtime Touchpad HUD Reverse Engineering:** The engine initializes touch button coordinates during `_TouchpadInit` (0x687c), populating 84-byte structs in `__DATA` (`_DpadButton`, `_tp_button[7]`). Rather than hardcoding button hitboxes, the loader dynamically reads these structs and maps physical PS Vita buttons to synthetic touches centered on each button.
+- **Dynamic Touch HUD Removal (`patch_hide_quad`):** Intercepting 2D ortho projection draw calls (`g_ProjectionMatrixLevel == 2`), the loader suppresses quads that collide with the touch button rects, completely eliminating mobile on-screen controls from the screen.
+
+#### 3. *Zenonia 5 iOS* (Gamevil)
+- **In-Memory Loopback Server:** The game demanded authentication with defunct servers (`zn555.gamevil.com:10000`). By hooking BSD socket primitives (`socket`, `connect`, `send`, `recv`), the loader runs an in-memory loopback server answering `CS_CONNECT` (0x100) packets with valid `SC_CONNECT` (0x101) session payloads, allowing complete offline campaign progression.
+
+---
+
+## 🧟 Family 6: Marmalade SDK / s3e Engine
+
+**Representative titles:** *Call of Duty: World at War Zombies*, *Plants vs. Zombies iOS*.
+
+### Critical Quirks:
+- **s3e Abstraction Layer:** Marmalade executes atop **s3e**, a cross-platform C++ runtime abstracting graphics, sound, and filesystem.
+- **`.icf` Configuration Patching:** Marmalade parses plain-text `.icf` configuration files (e.g. `app.icf`). Memory patches can enforce critical engine parameters such as `[S3E] GLESVersion=2` or expedite boot sequences via `FastShutdown=1`.
+- **Custom Section Layout:** Employs proprietary `s3e_code` and `__S3E_DATA` sections, requiring strict 8-byte pointer re-alignment during loading.

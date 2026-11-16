@@ -113,6 +113,10 @@ nav:
       - "13. AI-Assisted Porting Guide": 13-ai-assisted-porting.md
       - "14. Base Guide (gl33ntwine)": 14-base-guide-gl33ntwine.md
       - "15. Quick Reference & Cheat Sheets": 15-quick-reference-and-cheatsheets.md
+  - "iOS Porting & Advanced Enhancements":
+      - "16. iOS Porting & Mach-O Loader": 16-ios-porting-and-macho-loader.md
+      - "17. Android vs iOS Architecture": 17-android-vs-ios-differences.md
+      - "18. Advanced Video, FPS & Modding": 18-advanced-techniques-and-enhancements.md
   - "Languages / Idiomas":
       - "🇪🇸 Español": es/index.md
       - "🇧🇷 Português": pt/index.md

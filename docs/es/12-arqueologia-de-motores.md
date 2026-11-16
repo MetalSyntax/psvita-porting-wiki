@@ -101,3 +101,58 @@ graph LR
   `Java_org_cocos2dx_lib_Cocos2dxRenderer_nativeInit(width, height)`.
 - **Carga de Assets desde ZIP:**
   Cocos2d-x busca internamente los assets mediante `CCFileUtils`. Al configurar la ruta base a `ux0:data/<juego>/game.apk`, la librería lee automáticamente imágenes, fuentes TTF y música directamente del ZIP sin necesidad de descomprimir miles de archivos sueltos.
+
+---
+
+## 🍎 Familia 5: Motores Nativos Clásicos de iOS (Mach-O)
+
+**Juegos representativos:** *Prince of Persia: Warrior Within*, *Rayman 2: The Great Escape*, *Zenonia 5 iOS*, *PES 2011/2012 iOS*, *The Sims 3 iOS*.
+
+A diferencia de los ports de Android, estos juegos se compilaron como binarios `MH_EXECUTE` puros para ARMv7, prescindiendo totalmente de máquinas virtuales Java o capas JNI.
+
+```mermaid
+graph TD
+    subgraph "Arqueología de Motores iOS en Vita"
+        MachO["Ejecutable Mach-O (Descifrado cryptid 0)"]
+        Slide["Slide de Memoria (MACHO_SLIDE = 0x98000000)"]
+        Rebase["rebase.bin (Punteros de __DATA rebasados)"]
+        
+        MachO --> Slide --> Rebase
+        
+        subgraph "Subsistemas Reemplazados"
+            CoreAudio["CoreAudio / AudioQueue -> sceAudioOut"]
+            ObjC["Mini-Runtime ObjC -> Fast Selector Dispatch"]
+            CgBI["CgBI Decoder -> Raw DEFLATE + BGRA swap"]
+            GLES["EAGLContext -> vitaGL (SOFTFP_ABI=1)"]
+        end
+        
+        Rebase --> CoreAudio
+        Rebase --> ObjC
+        Rebase --> CgBI
+        Rebase --> GLES
+    end
+```
+
+### Casos de Estudio Reales de Producción:
+
+#### 1. *Prince of Persia: Warrior Within* (Ubisoft / Gameloft)
+- **Pipeline de Vídeo Dual:** Sus cinemáticas eran archivos `.mp4` codificados en MPEG-4 Part 2 (`mp4v`). `SceAvPlayer` por hardware no podía reproducirlos (se apagaba a los 1.6 segundos). Se implementó un demuxer ISO-BMFF (MP4) ligero en C para parsear cajas `moov/trak/mdia/stbl` directamente con `sceIoOpen`/`sceIoRead`, enviando los flujos a `libavcodec` en hilos dedicados con conversión YUV420P->RGB565 acelerada por NEON, mientras los vídeos en H.264 usan decodificación hardware con `SceAvcdec`.
+- **Audio y Sincronía:** El audio AAC decodificado con `libswresample` alimenta `sceAudioOutOutput()`, dictando el reloj físico de sincronización A/V sin derivas temporales.
+
+#### 2. *Rayman 2: The Great Escape* (Gameloft)
+- **Arqueología de Controles en Memoria:** El motor inicializa sus botones táctiles en `_TouchpadInit` (0x687c) rellenando estructuras de 84 bytes en `__DATA` (`_DpadButton`, `_tp_button[7]`). En lugar de adivinar las coordenadas en pantalla, el loader lee directamente las estructuras de la memoria del juego y traduce los botones físicos de la consola a pulsaciones en el centro exacto de cada botón.
+- **Ocultación Dinámica de HUD (`patch_hide_quad`):** Interceptando las llamadas de dibujo ortográfico 2D (`g_ProjectionMatrixLevel == 2`), el loader suprime el renderizado de los botones táctiles virtuales, manteniendo la pantalla completamente limpia.
+
+#### 3. *Zenonia 5 iOS* (Gamevil)
+- **Emulación de Servidor en Memoria:** El juego exigía autenticarse con `zn555.gamevil.com:10000` (servidores dados de baja). Interceptando sockets BSD (`socket`, `connect`, `send`, `recv`), el loader aloja un servidor loopback interno que responde a paquetes `CS_CONNECT` (0x100) generando respuestas `SC_CONNECT` (0x101) con ID de usuario y sesión válidos, desbloqueando el juego sin conexión a internet.
+
+---
+
+## 🧟 Familia 6: Motor Marmalade SDK / s3e
+
+**Juegos representativos:** *Call of Duty: World at War Zombies*, *Plants vs. Zombies iOS*.
+
+### Particularidades Críticas:
+- **Estructura s3e:** El ejecutable de Marmalade (`kiwi`) monta una capa de abstracción interna denominada **s3e** que encapsula gráficos, sonido y sistema de archivos.
+- **Configuración `.icf`:** Marmalade lee archivos de texto de configuración de inicialización (ej. `app.icf`). Mediante parches en memoria, es posible forzar banderas críticas como `[S3E] GLESVersion=2` o acelerar los tiempos de arranque con `FastShutdown=1`.
+- **Secciones de Código:** Emplea segmentos propietarios `s3e_code` y `__S3E_DATA`, requiriendo un alineamiento estricto de punteros durante la carga.

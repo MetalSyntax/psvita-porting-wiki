@@ -84,45 +84,45 @@ Tanto la PlayStation Vita como los smartphones Android de la era 2010–2016 com
 Cuando compilas un juego para Android en C++ usando el Android NDK, el compilador genera un archivo de librería compartida ELF: `libgame.so`.
 Ese binario contiene **instrucciones de máquina ARM puras**.
 
-| Plataforma | CPU ISA | Formato de Binario | ABI de Llamada |
-|---|---|---|---|
-| **Android 32-bit** | ARMv7-A (Cortex-A8/A9/A15) | ELF32 (`.so`) | AAPCS (ARM Architecture Procedure Call Standard) |
-| **PlayStation Vita** | ARMv7-A (Cortex-A9 MPCore) | ELF32 / Sony SELF (`eboot.bin`) | AAPCS (con softfp / hardfp según toolchain) |
+| Plataforma | CPU ISA | Formato de Binario | ABI de Llamada | Capa de Sistema Operativo |
+|---|---|---|---|---|
+| **Android 32-bit** | ARMv7-A (Cortex-A8/A9/A15) | ELF32 (`.so`) | AAPCS estándar | Bionic Libc + Java VM (JNI) |
+| **Apple iOS 32-bit** | ARMv7-A (Cortex-A8/A9) | Mach-O 32-bit (`MH_EXECUTE`) | Darwin ARM ABI (r9 scratch, stack 4B) | Darwin Libc + Objective-C Runtime |
+| **PlayStation Vita** | ARMv7-A (Cortex-A9 MPCore) | ELF32 / Sony SELF (`eboot.bin`) | AAPCS (SoftFP / HardFP) | VitaOS Microkernel + Newlib Libc |
 
-Debido a que el procesador de la PlayStation Vita comprende directamente los opcodes ARM generados para Android, **la CPU de la Vita ejecuta las instrucciones del `.so` directamente en silicio a velocidad de hardware nativa (cero overhead de emulación)**.
+Debido a que el procesador de la PlayStation Vita comprende directamente los opcodes ARM generados tanto para Android como para iOS, **la CPU de la Vita ejecuta las instrucciones del binario móvil directamente en silicio a velocidad de hardware nativa (cero overhead de emulación)**.
 
 ```mermaid
 sequenceDiagram
-    participant APK as Android APK (libgame.so)
+    autonumber
+    participant App as Binario Móvil (ELF o Mach-O)
     participant Loader as Vita Loader (eboot.bin)
-    participant FalsoJNI as FalsoJNI Bridge
+    participant Bridge as Bridge (FalsoJNI / Mini-ObjC)
     participant VitaGL as vitaGL (OpenGL ES)
     participant VitaOS as Vita OS / Hardware
 
-    Loader->>Loader: Lee ELF, reserva memoria RWX con sceKernelAllocMemBlock
-    Loader->>Loader: Procesa relocalizaciones (R_ARM_RELATIVE, R_ARM_GLOB_DAT)
-    Loader->>Loader: Enlaza tabla de imports a funciones del Loader
-    Loader->>FalsoJNI: Inicializa JVM ficticia y JNIEnv
-    Loader->>APK: Invoca JNI_OnLoad / nativeInit
-    APK->>FalsoJNI: Llama a Android Java API (CallStaticVoidMethod)
-    FalsoJNI-->>APK: Devuelve respuesta simulada válida (no-op seguro)
-    APK->>VitaGL: Dibuja geometría (glDrawElements)
-    VitaGL->>VitaOS: Convierte a llamadas SCE GXM por hardware
+    Loader->>Loader: Reserva memoria RWX con kubridge (sceKernelAllocMemBlock)
+    Loader->>Loader: Aplica relocalizaciones (R_ARM_RELATIVE o rebase.bin)
+    Loader->>Loader: Enlaza tabla de imports a funciones nativas de Vita
+    Loader->>Bridge: Inicializa entorno (JNIEnv o Despachador objc_msgSend)
+    Loader->>App: Invoca punto de entrada principal (JNI_OnLoad o main)
+    App->>Bridge: Llama a servicios de plataforma (Java API o selectores Cocoa)
+    Bridge-->>App: Devuelve respuesta simulada válida (no-op seguro)
+    App->>VitaGL: Dibuja geometría (glDrawElements / glDrawArrays)
+    VitaGL->>VitaOS: Convierte a command buffers SCE GXM por hardware
 ```
 
-### El Rol del Loader: El "Sistema Operativo Huésped"
-Si las instrucciones son compatibles, ¿por qué no podemos simplemente ejecutar el `.so` directamente?
-Porque el `.so` fue diseñado esperando un entorno **Linux / Android**:
-1. Espera la biblioteca estándar de C de Android (**Bionic libc**), con llamadas al sistema Linux como `open()`, `mmap()`, `pthread_create()`.
-2. Espera que los gráficos se comuniquen con la superficie de Android (**EGL / SurfaceView / OpenGL ES**).
-3. Espera que el audio se envíe a través de **OpenSL ES**, **AudioTrack** o **SoundPool**.
-4. Espera que la máquina virtual Java (**Dalvik / ART**) esté viva para atender llamadas **JNI** (`JNIEnv*`, `JavaVM*`).
+### Los Dos Ecosistemas Huéspedes: Android e iOS
+Si las instrucciones son compatibles, ¿por qué no podemos simplemente ejecutar el binario directamente?
+Porque el código fue concebido esperando uno de dos entornos de sistema operativo:
+1. **El Entorno Android (ELF):** Espera la biblioteca estándar de C de Android (**Bionic libc**), gráficos en superficie **EGL**, audio vía **OpenSL ES** o **AudioTrack**, y la máquina virtual Java (**Dalvik/ART**) para llamadas **JNI**. Se atiende mediante el cargador ELF y **FalsoJNI**.
+2. **El Entorno iOS (Mach-O):** Espera **Darwin libc**, gráficos vía **EAGLContext / CAEAGLLayer**, audio vía **CoreAudio / AudioQueue**, y llamadas al sistema mediante el despachador de mensajería **`objc_msgSend`**. Se atiende mediante el cargador Mach-O y el **Mini-Runtime de Objective-C** en C puro.
 
-El **SoLoader** (empaquetado en tu `eboot.bin` de Vita) cumple exactamente ese papel:
-- **Carga el ELF:** Mapea los segmentos de código y datos del `.so` en la memoria de la Vita.
-- **Relocaliza los punteros:** Ajusta todas las direcciones de memoria absoluta del binario.
-- **Intercepta las importaciones:** Redirige llamadas a `malloc`, `memcpy`, `glDrawArrays`, `pthread_mutex_lock` hacia la implementación nativa de VitaSDK y vitaGL.
-- **Suministra un entorno JNI simulado (FalsoJNI):** Responde a las consultas del juego sobre el modelo de dispositivo, rutas de almacenamiento, entrada de teclado y estado del audio sin necesitar una máquina virtual Java real.
+El **Loader** (empaquetado en tu `eboot.bin` de Vita) cumple exactamente ese papel:
+- **Carga el binario:** Mapea los segmentos de código y datos en la memoria de la Vita.
+- **Relocaliza los punteros:** Ajusta todas las direcciones de memoria absoluta (`.rel.dyn` en ELF o `rebase.bin` en Mach-O).
+- **Intercepta las importaciones:** Redirige llamadas del sistema hacia la implementación nativa de VitaSDK y vitaGL.
+- **Suministra la plataforma simulada:** Responde a las consultas del juego sobre rutas de almacenamiento, controladores, dimensiones de pantalla y audio sin necesidad de emular sistemas operativos completos.
 
 ---
 

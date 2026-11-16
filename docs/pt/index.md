@@ -47,6 +47,9 @@ flowchart TD
 | **13** | [Guia de Porting com IA](13-guia-porting-com-ia.md) | Protocolos de colaboração Humano + IA, economia de contexto e tokens, prompts determinísticos para stubs e engenharia reversa. |
 | **14** | [Guia Base de gl33ntwine](14-guia-base-gl33ntwine.md) | O artigo clássico de Vitaliy Atamanenko traduzido para português com notas e contexto técnico moderno. |
 | **15** | [Referência Rápida & Cheat Sheets](15-referencia-rapida-e-cheatsheets.md) | Assinaturas de tipos JNI, códigos de erro do kernel VitaOS e tabela de correspondência Bionic libc para Newlib. |
+| **16** | [Porting iOS & Carregador Mach-O](../es/16-porting-ios-y-cargador-macho.md) | Execução nativa de binários Mach-O ARMv7 do iOS, dyld estático, rebase.bin, ABI Darwin, mini-runtime Objective-C e CgBI PNG. *(Espanhol/Inglês)* |
+| **17** | [Diferenças Android vs iOS](../es/17-diferencias-android-vs-ios.md) | Matriz comparativa: ELF vs Mach-O, FalsoJNI vs ObjC, ABI Darwin vs AAPCS e árvore de decisão APK vs IPA. *(Espanhol/Inglês)* |
+| **18** | [Técnicas Avançadas e Melhorias](../es/18-tecnicas-avanzadas-y-mejoras.md) | Reprodução de vídeo com FFmpeg multi-thread (MPEG-4/AAC), tradução de jogos, 60 FPS, supressão de botões de toque (patch_hide_quad) e PVRTC direto. *(Espanhol/Inglês)* |
 
 ---
 

@@ -1,8 +1,8 @@
 <div class="chapter-hero">
   <span class="chapter-badge">Edición en Español</span>
-  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Enciclopedia y Guía de Porting para PS Vita (SoLoader)</h1>
+  <h1 style="margin: 0.4rem 0 0.6rem 0; font-size: 2rem;">Enciclopedia y Guía de Porting para PS Vita (Android & iOS)</h1>
   <p style="margin: 0; opacity: 0.9; font-size: 1.05rem;">
-    Manual completo de ingeniería paso a paso y base de referencia técnica para transformar un binario compilado de Android (<code>.apk</code> / <code>.so</code>) en una aplicación nativa ejecutable (<code>.vpk</code>) en PlayStation Vita.
+    Manual completo de ingeniería paso a paso y base de referencia técnica para transformar binarios móviles de Android (<code>.apk</code> / <code>.so</code>) y Apple iOS (<code>.ipa</code> / <code>Mach-O</code>) en aplicaciones nativas ejecutables (<code>.vpk</code>) en PlayStation Vita.
   </p>
 </div>
 
@@ -11,7 +11,7 @@
 ```mermaid
 flowchart TD
     A["00. Fundamentos y Arquitectura"] --> B["01. Entorno y Herramientas"]
-    B --> C["02. Triaje y Selección de APK"]
+    B --> C["02. Triaje y Selección de APK/IPA"]
     C --> D["03. Análisis Estático & Reverse Engineering"]
     D --> E["04. Arquitectura SoLoader & Relocalizaciones"]
     E --> F["05. FalsoJNI & Puente Java"]
@@ -23,6 +23,16 @@ flowchart TD
     K --> L["11. Triage de Crashes & Debugging en Hardware"]
     L --> M["12. Arqueología de Motores Reales"]
     M --> N["13. Guía de Porting con IA"]
+    
+    subgraph "Rama Avanzada e iOS"
+        O["16. Porting iOS & Cargador Mach-O"]
+        P["17. Diferencias Android vs iOS"]
+        Q["18. Técnicas Avanzadas, Vídeo & 60 FPS"]
+    end
+    
+    D -.-> O
+    O --> P
+    K --> Q
 ```
 
 ---
@@ -47,9 +57,12 @@ flowchart TD
 | **13** | [Guía de Porting con IA](13-guia-porting-con-ia.md) | Protocolos de interacción Humano+IA, economía de contexto y tokens, prompts deterministas para stubs y desensamblado. |
 | **14** | [Guía Base de gl33ntwine](14-guia-base-gl33ntwine.md) | La guía histórica de Vitaliy Atamanenko traducida al español con comentarios y notas de desarrollo actualizadas. |
 | **15** | [Referencia Rápida & Cheat Sheets](15-referencia-rapida-y-cheatsheets.md) | Tipos JNI, códigos de error de kernel VitaOS, funciones libc Bionic vs Newlib y tabla de compatibilidad rápida. |
+| **16** | [Porting iOS & Cargador Mach-O](16-porting-ios-y-cargador-macho.md) | Ejecución nativa de binarios Mach-O ARMv7 de iOS, dyld estático, rebase.bin, r9/ABI Darwin, mini-runtime Objective-C y CgBI PNG. |
+| **17** | [Diferencias Android vs iOS](17-diferencias-android-vs-ios.md) | Matriz comparativa: ELF vs Mach-O, FalsoJNI vs ObjC, convenciones de llamada y árbol de decisión de viabilidad APK vs IPA. |
+| **18** | [Técnicas Avanzadas y Mejoras](18-tecnicas-avanzadas-y-mejoras.md) | Reproducción de vídeo con FFmpeg multihilo (MPEG-4/AAC), traducción de juegos, desbloqueo a 60 FPS, supresión de botones táctiles (patch_hide_quad), DRM loopback y PVRTC directo a VRAM. |
 
 ---
 
 > [!TIP]
-> **Para desarrolladores principiantes**: Comienza leyendo los capítulos 00, 01 y 02 antes de descargar cualquier APK.
-> **Para desarrolladores avanzados / IAs**: Los capítulos 04 (Relocalizaciones ELF), 05 (FalsoJNI), 06 (vitaGL) y 11 (Triage de Crashes) contienen la lógica nuclear de bajo nivel requerida para solucionar los fallos más complejos en hardware real.
+> **Para desarrolladores principiantes**: Comienza leyendo los capítulos 00, 01 y 02 antes de descargar cualquier APK o IPA.
+> **Para desarrolladores avanzados / IAs**: Los capítulos 04 (Relocalizaciones ELF), 16 (Cargador Mach-O iOS), 17 (Diferencias Android vs iOS) y 18 (Técnicas Avanzadas: Vídeo, 60 FPS y Modding) contienen la ingeniería de vanguardia desarrollada en los últimos ports de la consola.
